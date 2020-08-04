@@ -14,6 +14,6 @@ def encrypt(PublicKey, Max, plaintext):
     print(ciphertext)
 
 def decrypt(PrivateKey, Max, plaintext):
-    
+    print()
 
 encrypt(83,7471,input())
