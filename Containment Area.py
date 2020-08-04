@@ -11,7 +11,7 @@ def encrypt(PublicKey, Max, plaintext):
         # specified by the public key, then subtract Max from it until the number left is
         # less than Max.
         ciphertext.append(CipherChar)
-    print(ciphertext)
+    return(ciphertext)
 
 def decrypt(PrivateKey, Max, ciphertext):
     plaintext = []
