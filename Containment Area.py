@@ -13,4 +13,7 @@ def encrypt(PublicKey, Max, plaintext):
         ciphertext.append(CipherChar)
     print(ciphertext)
 
-encrypt(89,41,"cipher")
+def decrypt(PrivateKey, Max, plaintext):
+    
+
+encrypt(83,7471,input())
