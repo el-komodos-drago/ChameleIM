@@ -19,3 +19,4 @@ def decrypt(PrivateKey, Max, ciphertext):
         PlainChar = (character ** PrivateKey) % Max)
 
 cipher = encrypt(83,7471,input())
+print(decrypt(cipher))
