@@ -3,7 +3,14 @@ print("This code was not created by a cryptographic expert and has not been revi
 print("Under no circumstances should it be used for real world perposes")
 
 def encrypt(PublicKey, Max, plaintext):
-    for character in plaintext:
-        print(character)
+    ciphertext = []
+    for character in plaintext: #breaks up plaintext into a series of characters and operates on each of them.
+        CharCode = ord(character) #converts the character into it's numeric representation
+        CipherChar = (CharCode ** PublicKey) % Max
+        # Multiply the numeric representation of the character by itself the number of times
+        # specified by the public key, then subtract Max from it until the number left is
+        # less than Max.
+        ciphertext.append(CipherChar)
+    print(CipherChar)
 
-encrypt("1","1",input())
+encrypt("89","41",input())
