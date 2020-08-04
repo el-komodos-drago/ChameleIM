@@ -16,7 +16,7 @@ def encrypt(PublicKey, Max, plaintext):
 def decrypt(PrivateKey, Max, ciphertext):
     plaintext = []
     for character in ciphertext:
-        PlainChar = (character ** PrivateKey) % Max)
+        PlainChar = (character ** PrivateKey) % Max
 
 cipher = encrypt(83,7471,input())
 print(decrypt(cipher))
