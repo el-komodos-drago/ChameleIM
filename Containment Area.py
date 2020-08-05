@@ -7,6 +7,7 @@ def Num2Text (numbers):
     for number in numbers:
         character = chr(number)
         text.join(character)
+    return(text)
 
 def encrypt(PublicKey, Max, plaintext):
     ciphertext = []
