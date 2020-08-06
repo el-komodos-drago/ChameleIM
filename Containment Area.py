@@ -19,15 +19,15 @@ def CheckPrime (number): # checks if a number is prime
     # Primes are numbers that can not be formed by multiplying two other whole numbers
     # numbers that aren't prime are known as composit numbers and the whole numbers they can
     # be divided by are known as factors.
-    if number = 1:
+    if number == 1:
         return(False) # discards 1
-    if number % 2 = 0:
+    if number % 2 == 0:
         return(False) # excludes even numbers
-    if number % 3 = 0:
+    if number % 3 == 0:
         return(False) # excludes numbers that are multiples of 3
     limit = sqrt(number) + 2 # set the limit to the square root of the number.
     # If the smallest of the two numbers being multiplied is larger than the square root of
-    # the number being tested then the product will be larger than the 
+    # the number being tested then the result will be larger than the number being tested
     # Note to future me: convert this to use sqrt()
     
     for iteration in range(3, limit, 2):
