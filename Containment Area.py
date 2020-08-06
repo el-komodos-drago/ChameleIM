@@ -32,7 +32,7 @@ def CheckPrime (number): # checks if a number is prime
     
     for iteration in range(3, limit, 2):
         #checks odd numbers between 3 and half the value of the number
-        
+        print()
 
 def encrypt(PublicKey, Max, plaintext):
     ciphertext = []
