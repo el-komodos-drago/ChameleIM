@@ -27,8 +27,9 @@ def CheckPrime (number): # checks if a number is prime
         return(False) # excludes numbers that are multiples of 3
     limit = sqrt(number) + 2 # set the limit to the square root of the number.
     # If the smallest of the two numbers being multiplied is larger than the square root of
-    # the number being tested then the result will be larger than the number being tested
-    # Note to future me: convert this to use sqrt()
+    # the number being tested then the result will be larger than the number being tested.
+    # We only need to test the smaller of the potential factors because that will also test
+    # the larger factor they pair up with.
     
     for iteration in range(3, limit, 2):
         #checks odd numbers between 3 and half the value of the number
@@ -38,7 +39,7 @@ def encrypt(PublicKey, Max, plaintext):
     ciphertext = []
     for character in plaintext: #breaks up plaintext into a series of characters and then for each of them ...
         CharCode = ord(character) #converts the character into it's numeric representation
-        CipherChar = (CharCode ** PublicKey) % Max
+        CipherChar = pow(CharCode, PublicKey, Max)
         # Multiply the numeric representation of the character by itself the number of times
         # specified by the public key, then subtract Max from it until the number left is
         # less than Max.
@@ -48,7 +49,7 @@ def encrypt(PublicKey, Max, plaintext):
 def decrypt(PrivateKey, Max, ciphertext):
     plaintext = []
     for character in ciphertext: #breaks up the ciphertext into a series of characters and opperates on each of them indiidually.
-        PlainChar = (character ** PrivateKey) % Max
+        PlainChar = pow(character, PrivateKey, Max)
         # Multiply the numeric representation of the character by itself the number of times
         # specified by the public key, then subtract Max from it until the number left is
         # less than Max.
