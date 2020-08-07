@@ -11,9 +11,29 @@ def Num2Text (numbers):
         text = text + character
     return(text)
 
-################################
-#####  CRYPTOGRAPHIC CODE  #####
-################################
+
+
+#########################################
+#####  START OF CRYPTOGRAPHIC CODE  #####
+#########################################
+
+
+
+def GreatestCommonDivisor (number1, number2): # Euclid's algorithm
+    #This code finds the greatest common divisor of two numbers.
+    #this means the largest number both can be divided by with the result being a whole number
+        
+    if number2 > number1: #if number2 is bigger than number 1...
+        number2, number1 = number1, number2 #flip number1 and number2 over
+    
+    remainder = number1 % number2
+    if remainder == 0: # if number 2 already divides number 1 perfectly...
+        return(number2) #then it is the greatest common divisor
+    # We only need to find the GCD of number 2 and the remainder as if it divides number 2,
+    # it will also divide the part of the number that isn't the remainder.
+    # See https://medium.com/i-math/why-does-the-euclidean-algorithm-work-aaf43bd3288e
+    return(GreatestCommonDivisor(number2, remainder))
+
 
 def CheckPrime (number): # checks if a number is prime
     # Primes are numbers that can not be formed by multiplying two other whole numbers
@@ -33,7 +53,10 @@ def CheckPrime (number): # checks if a number is prime
     
     for iteration in range(3, limit, 2):
         #checks odd numbers between 3 and half the value of the number
-        print()
+        #Dev note, upgrade to check 6i - 1 and 6i + 1
+        if number % iteration == 0:
+            return(False)
+    return(True)
 
 def encrypt(PublicKey, Max, plaintext):
     ciphertext = []
@@ -55,6 +78,14 @@ def decrypt(PrivateKey, Max, ciphertext):
         # less than Max.
         plaintext.append(PlainChar) # Attach the encrypted character to the end of the plaintext
     return (plaintext)
+
+
+
+#######################################
+#####  END OF CRYPTOGRAPHIC CODE  #####
+#######################################
+
+
 
 cipher = encrypt(83,7471,input())
 print(decrypt(347,7471,cipher))
