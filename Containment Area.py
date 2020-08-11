@@ -4,7 +4,7 @@ print("Under no circumstances should it be used for real world perposes")
 
 from math import sqrt
 from random import randrange
-from random import SystemRandom
+from secrets import SystemRandom
 
 def Num2Text (numbers):
     text = ""
