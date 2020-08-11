@@ -119,6 +119,7 @@ def GenerateKeypair (p, q):
         return("PickLargerPrimes")
     PublicKey = 65537 #might seem weird but this is what 95.5% of CAs do.
     # https://www.johndcook.com/blog/2018/12/12/rsa-exponent/
+    g = GreatestCommonDivisor(e,phi)
     while g != 1:
         PublicKey = randrange(1000,phi) #Randrange is not cryptographically secure. Doesn't need to be.
         g = GreatestCommonDivisor(e,phi)
