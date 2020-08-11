@@ -125,7 +125,7 @@ def GenerateKeypair (p, q):
         g = GreatestCommonDivisor(PublicKey,phi)
     
     #calculate the PublicKey
-    PrivateKey = MultiplicitveInverse(PrivateKey, phi)
+    PrivateKey = MultiplicitveInverse(PublicKey, phi)
     
     return(Max, PublicKey, PrivateKey)
 
