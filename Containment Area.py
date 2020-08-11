@@ -160,5 +160,5 @@ def decrypt(PrivateKey, Max, ciphertext):
 # cipher = encrypt(83,7471,input())
 # print(decrypt(347,7471,cipher))
 # print(Num2Text(decrypt(347,7471,cipher)))
-print(int(urandom()))
+print(int(urandom(1)))
 
