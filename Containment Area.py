@@ -16,6 +16,7 @@ def Num2Text (numbers):
 #########################################
 #####  START OF CRYPTOGRAPHIC CODE  #####
 #########################################
+#Coded using https://gist.github.com/JonCooperWorks/5314103 as a reference
 
 
 
@@ -33,7 +34,6 @@ def GreatestCommonDivisor (number1, number2): # Euclid's algorithm
     # it will also divide the part of the number that isn't the remainder.
     # See https://medium.com/i-math/why-does-the-euclidean-algorithm-work-aaf43bd3288e
     return(GreatestCommonDivisor(number2, remainder))
-
 
 def CheckPrime (number): # checks if a number is prime
     # Primes are numbers that can not be formed by multiplying two other whole numbers
@@ -57,6 +57,43 @@ def CheckPrime (number): # checks if a number is prime
         if number % iteration == 0:
             return(False)
     return(True)
+
+def MultiplicitveInverse(PublicKey, phi): #Euclid's Extended Algorithm
+    #This finds the Modular Multiplicitve Inverse.
+    # A regular inverse is 1 divided by a number, let's call the original number a.
+    # A multiplicitive inverse of a number which when multiplied with a equals 1.
+    # Normally a multiplicitive inverse is the same as a regular inverse.
+    # But a modular multiplicitive inverse is a multiplicitive inverse of a number
+    # in a finite field.
+    
+    # As a result this finds a value of d such that PublicKey * PrivateKey = 1
+    # in the finite field defined by phi
+    # (ie a value of d where (PublicKey * PrivateKey)/phi leaves a remainder of 1)
+    
+    #Built using https://en.wikipedia.org/wiki/Extended_Euclidean_algorithm#Pseudocode
+    #as a reference implimentation.
+    
+    #Initialise assorted variables
+    OldRemainder = PublicKey
+    remainder = phi
+    T = 1
+    OldT = 0
+    
+    while remainder != 0:
+        temp = remainder #temporarily save the remainder...
+        quotient, remainder = divmod(OldRemainder, remainder) #...do stuff...
+        OldRemainder = temp #... then transfer the previous remainder into OldRemainder
+        
+        temp = T #temporarily save T ...
+        T = OldT - (quotient * T) #...do stuff...
+        OldT = temp #... then transfer the pervious S into OldS
+        
+    return(T)
+
+def GenerateKeypair (p, q):
+    n = p * q
+    
+    phi = (p-1) * (q-1) #
 
 def encrypt(PublicKey, Max, plaintext):
     ciphertext = []
@@ -87,6 +124,7 @@ def decrypt(PrivateKey, Max, ciphertext):
 
 
 
-cipher = encrypt(83,7471,input())
-print(decrypt(347,7471,cipher))
-print(Num2Text(decrypt(347,7471,cipher)))
+# cipher = encrypt(83,7471,input())
+# print(decrypt(347,7471,cipher))
+# print(Num2Text(decrypt(347,7471,cipher)))
+print(MultiplicitiveInverse(240,46))
