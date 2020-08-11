@@ -112,7 +112,7 @@ def GenerateKeypair (p, q):
     phi = (p-1) * (q-1) #phi is the totient of n (whatever the #### that means)
     
     # Pick e
-    if phi =< 65537:
+    if phi <= 65537:
         return("PickLargerPrimes")
     PublicKey = 65537 #might seem weird but this is what 95.5% of CAs do.
     # https://www.johndcook.com/blog/2018/12/12/rsa-exponent/
