@@ -31,8 +31,8 @@ def RandomPrime(cap):
         prime.append(True)
     
     for itteration in range(258, int(sqrt(cap)+1)):
-        LargestPrime = itteration # itteration is the largest prime so far
         if prime[itteration] == True: #if itteration is prime...
+            LargestPrime = itteration # itteration is the largest prime so far
             for i in range(itteration*2, cap+1, itteration):
                 prime[i] = False #mark all multiples of itteration as not prime
     return(LargestPrime)
