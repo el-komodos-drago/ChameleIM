@@ -159,4 +159,5 @@ def decrypt(PrivateKey, Max, ciphertext):
 # cipher = encrypt(83,7471,input())
 # print(decrypt(347,7471,cipher))
 # print(Num2Text(decrypt(347,7471,cipher)))
-print(RandomPrime(10000000))
+prime = RandomPrime(10000000)
+print(CheckPrime(prime))
