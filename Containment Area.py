@@ -70,7 +70,7 @@ def CheckPrime (number): # checks if a number is prime
     # We only need to test the smaller of the potential factors because that will also test
     # the larger factor they pair up with.
     
-    for iteration in range(3, limit, 2):
+    for iteration in range(3, int(limit)+1, 2):
         #checks odd numbers between 3 and half the value of the number
         #Dev note, upgrade to check 6i - 1 and 6i + 1
         if number % iteration == 0:
