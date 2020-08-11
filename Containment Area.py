@@ -4,7 +4,7 @@ print("Under no circumstances should it be used for real world perposes")
 
 from math import sqrt
 from random import randrange
-from os import urandom
+from random import SystemRandom
 
 def Num2Text (numbers):
     text = ""
@@ -160,5 +160,5 @@ def decrypt(PrivateKey, Max, ciphertext):
 # cipher = encrypt(83,7471,input())
 # print(decrypt(347,7471,cipher))
 # print(Num2Text(decrypt(347,7471,cipher)))
-print(int(urandom(1)))
+print(SystemRandom.randint(70000,100000))
 
