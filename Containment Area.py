@@ -3,6 +3,7 @@ print("This code was not created by a cryptographic expert and has not been revi
 print("Under no circumstances should it be used for real world perposes")
 
 from math import sqrt
+from random import randrange
 
 def Num2Text (numbers):
     text = ""
@@ -18,7 +19,23 @@ def Num2Text (numbers):
 #########################################
 #Coded using https://gist.github.com/JonCooperWorks/5314103 as a reference
 
-
+def RandomPrime(cap):
+    #Sieve of Eratosthenes using
+    #https://www.geeksforgeeks.org/python-program-for-sieve-of-eratosthenes/
+    #as a reference implimentation
+    #returns the largest random prime before the cap
+    
+    #creates a list of length cap with all values being True.
+    for i in range (0,cap+1):
+        prime.append(True)
+    
+    for itteration in range(258, sqrt(cap)+1):
+        LargestPrime = itteration # itteration is the largest prime so far
+        if prime[itteration] == True: #if itteration is prime...
+            for i in range(itteration*2, cap+1, itteration):
+                prime[i] = False #mark all multiples of itteration as not prime
+    return(LargestPrime)
+    
 
 def GreatestCommonDivisor (number1, number2): # Euclid's algorithm
     #This code finds the greatest common divisor of two numbers.
@@ -91,9 +108,22 @@ def MultiplicitveInverse(PublicKey, phi): #Euclid's Extended Algorithm
     return(T)
 
 def GenerateKeypair (p, q):
-    n = p * q
+    Max = p * q
+    phi = (p-1) * (q-1) #phi is the totient of n (whatever the #### that means)
     
-    phi = (p-1) * (q-1) #
+    # Pick e
+    if phi =< 65537:
+        return("PickLargerPrimes")
+    PublicKey = 65537 #might seem weird but this is what 95.5% of CAs do.
+    # https://www.johndcook.com/blog/2018/12/12/rsa-exponent/
+    while g != 1:
+        PublicKey = randrange(1000,phi) #Randrange is not cryptographically secure. Doesn't need to be.
+        g = GreatestCommonDivisor(e,phi)
+    
+    #calculate the PublicKey
+    PrivateKey = MultiplicitveInverse(PrivateKey, phi)
+    
+    return(Max, PublicKey, PrivateKey)
 
 def encrypt(PublicKey, Max, plaintext):
     ciphertext = []
@@ -127,4 +157,4 @@ def decrypt(PrivateKey, Max, ciphertext):
 # cipher = encrypt(83,7471,input())
 # print(decrypt(347,7471,cipher))
 # print(Num2Text(decrypt(347,7471,cipher)))
-print(MultiplicitveInverse(240,46))
+print(RandomPrime(1000))
