@@ -26,6 +26,7 @@ def RandomPrime(cap):
     #returns the largest random prime before the cap
     
     #creates a list of length cap with all values being True.
+    prime = []
     for i in range (0,cap+1):
         prime.append(True)
     
