@@ -161,6 +161,8 @@ prime2 = RandomPrime(SystemRandom().randint(257,1000000))
 
 Max, PublicKey, PrivateKey = (GenerateKeypair(prime1, prime2))
 
+print(Max, PublicKey, PrivateKey)
+
 cipher = encrypt(PublicKey,Max,input())
 print(decrypt(PrivateKey,Max,cipher))
 print(Num2Text(decrypt(PrivateKey,Max,cipher)))
