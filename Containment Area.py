@@ -158,8 +158,8 @@ def decrypt(PrivateKey, Max, ciphertext):
 
 Max, PublicKey, PrivateKey = (GenerateKeypair(646253, 93383))
 
-cipher = encrypt(65537,60349043899,input())
-print(decrypt(60348304264,60349043899,cipher))
-print(Num2Text(decrypt(60348304264,60349043899,cipher)))
+cipher = encrypt(PublicKey,Max,input())
+print(decrypt(PrivateKey,Max,cipher))
+print(Num2Text(decrypt(PrivateKey,Max,cipher)))
 
 
