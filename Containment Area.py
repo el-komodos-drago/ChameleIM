@@ -96,8 +96,8 @@ def MultiplicitveInverse(PublicKey, phi): #Euclid's Extended Algorithm
     #Initialise assorted variables
     OldRemainder = PublicKey
     remainder = phi
-    T = 1
-    OldT = 0
+    T = 0 #dev note change to S
+    OldT = 1
     
     while remainder != 0:
         temp = remainder #temporarily save the remainder...
