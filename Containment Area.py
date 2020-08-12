@@ -159,6 +159,7 @@ def decrypt(PrivateKey, Max, ciphertext):
 prime1 = RandomPrime(SystemRandom().randint(257,10000000))
 prime2 = RandomPrime(SystemRandom().randint(257,10000000))
 
+print(prime1, prime2)
 Max, PublicKey, PrivateKey = (GenerateKeypair(prime1, prime2))
 
 print(Max, PublicKey, PrivateKey)
