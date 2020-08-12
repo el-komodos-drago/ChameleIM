@@ -31,7 +31,7 @@ def RandomPrime(cap):
     prime = []
     for i in range (0,cap+1):
         prime.append(True)
-    
+    print("2")
     for itteration in range(2, int(sqrt(cap)+1)):
         if prime[itteration] == True: #if itteration is prime...
             for i in range(itteration*2, cap+1, itteration):
