@@ -28,7 +28,7 @@ def RandomPrime(cap):
     
     #creates a list of length cap with all values being True.
     print("bg")
-    prime = [True for i in range(n + 1)] 
+    prime = [True for i in range(cap + 1)] 
 #     prime = []
 #     for i in range (0,cap+1):
 #         prime.append(True)
