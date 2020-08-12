@@ -156,6 +156,8 @@ def decrypt(PrivateKey, Max, ciphertext):
 #####  END OF CRYPTOGRAPHIC CODE  #####
 #######################################
 
+prime1 = RandomPrime(random.SystemRandom.randrange(65537,1000000))
+
 Max, PublicKey, PrivateKey = (GenerateKeypair(646253, 93383))
 
 cipher = encrypt(PublicKey,Max,input())
