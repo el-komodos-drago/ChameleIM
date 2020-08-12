@@ -161,7 +161,6 @@ def decrypt(PrivateKey, Max, ciphertext):
 # cipher = encrypt(83,7471,input())
 # print(decrypt(347,7471,cipher))
 # print(Num2Text(decrypt(347,7471,cipher)))
-prime1 = RandomPrime(SystemRandom().randint(257,1000000))
-prime2 = RandomPrime(SystemRandom().randint(257,1000000))
-print(GenerateKeypair(prime1, prime2))
+print(CheckPrime(646253))
+print(GenerateKeypair(646253, 93383))
 
