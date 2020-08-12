@@ -108,7 +108,7 @@ def MultiplicitveInverse(PublicKey, phi): #Euclid's Extended Algorithm
         T = OldT - (quotient * T) #...do stuff...
         OldT = temp #... then transfer the pervious S into OldS
         
-    return(T)
+    return(OldT)
 
 def GenerateKeypair (p, q):
     Max = p * q
@@ -156,7 +156,7 @@ def decrypt(PrivateKey, Max, ciphertext):
 #####  END OF CRYPTOGRAPHIC CODE  #####
 #######################################
 
-# Max, PublicKey, PrivateKey = (GenerateKeypair(646253, 93383))
+Max, PublicKey, PrivateKey = (GenerateKeypair(646253, 93383))
 
 cipher = encrypt(65537,60349043899,input())
 print(decrypt(60348304264,60349043899,cipher))
