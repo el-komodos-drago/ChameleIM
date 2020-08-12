@@ -162,5 +162,6 @@ def decrypt(PrivateKey, Max, ciphertext):
 # print(decrypt(347,7471,cipher))
 # print(Num2Text(decrypt(347,7471,cipher)))
 print(CheckPrime(646253))
+print(CheckPrime(93383))
 print(GenerateKeypair(646253, 93383))
 
