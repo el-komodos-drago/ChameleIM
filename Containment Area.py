@@ -37,8 +37,8 @@ def RandomPrime(cap,prime):
     for itteration in range(2, int(sqrt(cap)+1)):
         if prime[itteration] == True: #if itteration is prime...
             print(str(itteration))
-             for i in range(itteration*2, cap+1, itteration):
-                 prime[i] = False #mark all multiples of itteration as not prime
+            for i in range(itteration*2, cap+1, itteration):
+                prime[i] = False #mark all multiples of itteration as not prime
     print("as")
     for itteration in range(cap,0,-1):
         if prime[itteration] == True:
