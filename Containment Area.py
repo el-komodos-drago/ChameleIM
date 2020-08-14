@@ -160,7 +160,7 @@ def decrypt(PrivateKey, Max, ciphertext):
 #######################################
 #####  END OF CRYPTOGRAPHIC CODE  #####
 #######################################
-BigArray = [True for i in range(100000000)] 
+BigArray = [True for i in range(100000000)]
 
 prime1 = RandomPrime(SystemRandom().randint(257,100000000),BigArray)
 prime2 = RandomPrime(SystemRandom().randint(257,100000000),BigArray)
