@@ -5,6 +5,7 @@ print("Under no circumstances should it be used for real world perposes")
 from math import sqrt
 from random import randrange
 from secrets import SystemRandom
+import time
 
 def Num2Text (numbers):
     text = ""
@@ -160,7 +161,14 @@ def decrypt(PrivateKey, Max, ciphertext):
 #######################################
 #####  END OF CRYPTOGRAPHIC CODE  #####
 #######################################
-BigArray = [True for i in range(100000000)]
+t0 = time.time()
+BigArray = [0] * 100000000
+t1 = time.time()
+print(str(t1-t0))
+t0 = time.time()
+BigArray2 = [True for i in range(100000000)]
+t1 = time.time()
+print(str(t1-t0))
 
 prime1 = RandomPrime(SystemRandom().randint(257,100000000),BigArray)
 prime2 = RandomPrime(SystemRandom().randint(257,100000000),BigArray)
