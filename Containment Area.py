@@ -162,7 +162,7 @@ def decrypt(PrivateKey, Max, ciphertext):
 #####  END OF CRYPTOGRAPHIC CODE  #####
 #######################################
 t0 = time.time()
-BigArray = [True] * 100
+BigArray = [True] * 100000000
 t1 = time.time()
 print(str(t1-t0))
 t0 = time.time()
