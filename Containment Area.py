@@ -20,7 +20,7 @@ def Num2Text (numbers):
 #########################################
 #Coded using https://gist.github.com/JonCooperWorks/5314103 as a reference
 
-def RandomPrime(cap):
+def RandomPrime(cap,prime):
     #Sieve of Eratosthenes using
     #https://www.geeksforgeeks.org/python-program-for-sieve-of-eratosthenes/
     #as a reference implimentation
@@ -28,7 +28,7 @@ def RandomPrime(cap):
     
     #creates a list of length cap with all values being True.
     print("bg")
-    prime = [True for i in range(cap + 1)] 
+#    prime = [True for i in range(cap + 1)] 
 #     prime = []
 #     for i in range (0,cap+1):
 #         prime.append(True)
@@ -160,9 +160,10 @@ def decrypt(PrivateKey, Max, ciphertext):
 #######################################
 #####  END OF CRYPTOGRAPHIC CODE  #####
 #######################################
+BigArray = [True for i in range(100000000)] 
 
-prime1 = RandomPrime(SystemRandom().randint(257,100000000))
-prime2 = RandomPrime(SystemRandom().randint(257,100000000))
+prime1 = RandomPrime(SystemRandom().randint(257,100000000),BigArray)
+prime2 = RandomPrime(SystemRandom().randint(257,100000000),BigArray)
 
 print(prime1, prime2)
 Max, PublicKey, PrivateKey = (GenerateKeypair(prime1, prime2))
