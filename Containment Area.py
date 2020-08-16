@@ -21,7 +21,7 @@ def Num2Text (numbers):
 #########################################
 #Coded using https://gist.github.com/JonCooperWorks/5314103 as a reference
 
-def RandomPrime(cap,prime):
+def RandomPrime(cap,prime=([True] * 100000000)):
     #Sieve of Eratosthenes using
     #https://www.geeksforgeeks.org/python-program-for-sieve-of-eratosthenes/
     #as a reference implimentation
@@ -167,7 +167,7 @@ t1 = time.time()
 print(str(t1-t0))
 
 t0 = time.time()
-prime1 = RandomPrime(SystemRandom().randint(257,100000000),BigArray)
+prime1 = RandomPrime(SystemRandom().randint(257,100000000))
 t1 = time.time()
 print(str(t1-t0))
 prime2 = RandomPrime(SystemRandom().randint(257,100000000),BigArray)
