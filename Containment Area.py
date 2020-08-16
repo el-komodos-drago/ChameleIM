@@ -166,8 +166,8 @@ BigArray = [True] * 100000000
 t1 = time.time()
 print(str(t1-t0))
 
-prime1 = RandomPrime(SystemRandom().randint(257,1000000000),BigArray)
-prime2 = RandomPrime(SystemRandom().randint(257,1000000000),BigArray)
+prime1 = RandomPrime(SystemRandom().randint(257,100000000),BigArray)
+prime2 = RandomPrime(SystemRandom().randint(257,100000000),BigArray)
 
 print(prime1, prime2)
 Max, PublicKey, PrivateKey = (GenerateKeypair(prime1, prime2))
