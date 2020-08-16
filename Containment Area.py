@@ -166,7 +166,10 @@ BigArray = [True] * 100000000
 t1 = time.time()
 print(str(t1-t0))
 
+t0 = time.time()
 prime1 = RandomPrime(SystemRandom().randint(257,100000000),BigArray)
+t1 = time.time()
+print(str(t1-t0))
 prime2 = RandomPrime(SystemRandom().randint(257,100000000),BigArray)
 
 print(prime1, prime2)
