@@ -6,7 +6,7 @@ from math import sqrt
 from random import randrange
 from secrets import SystemRandom
 import time
-from cryptography.utils import number
+from cryptography.util import number
 
 def Num2Text (numbers):
     text = ""
