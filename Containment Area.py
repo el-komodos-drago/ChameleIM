@@ -163,15 +163,9 @@ def decrypt(PrivateKey, Max, ciphertext):
 #####  END OF CRYPTOGRAPHIC CODE  #####
 #######################################
 t0 = time.time()
-print(number.getPrime(4000))
+print(number.getPrime(1000))
 t1 = time.time()
 print(str(t1-t0))
-
-t0 = time.time()
-prime1 = RandomPrime(SystemRandom().randint(257,100000000))
-t1 = time.time()
-print(str(t1-t0))
-prime2 = RandomPrime(SystemRandom().randint(257,100000000),BigArray)
 
 print(prime1, prime2)
 Max, PublicKey, PrivateKey = (GenerateKeypair(prime1, prime2))
