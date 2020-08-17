@@ -162,7 +162,7 @@ def decrypt(PrivateKey, Max, ciphertext):
 #######################################
 #####  END OF CRYPTOGRAPHIC CODE  #####
 #######################################
-print(number.getPrime(1000))
+print(number.getPrime(4000))
 
 t0 = time.time()
 prime1 = RandomPrime(SystemRandom().randint(257,100000000))
