@@ -95,15 +95,15 @@ def GenerateKeypair (p, q):
     return(Max, PublicKey, PrivateKey)
 
 def encrypt(PublicKey, Max, plaintext):
-    ciphertext = ""
+    ciphertext = b''
     for character in plaintext: #breaks up plaintext into a series of characters and then for each of them ...
         CharCode = ord(character) #converts the character into it's numeric representation
         CipherChar = pow(CharCode, PublicKey, Max)
         # Multiply the numeric representation of the character by itself the number of times
         # specified by the public key, then subtract Max from it until the number left is
         # less than Max.
-        ciphertext = ciphertext + chr(CipherChar) # Attach the encrypted character to the end of the ciphertext
-    return(ciphertext)
+        ciphertext = ciphertext + CipherChar.to_bytes(256,"big") # Attach the encrypted character to the end of the ciphertext
+    return(ciphertext.decode("ANSI"))
 
 def decrypt(PrivateKey, Max, ciphertext):
     plaintext = []
