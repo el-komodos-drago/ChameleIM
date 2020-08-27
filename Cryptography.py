@@ -8,6 +8,7 @@ from os import urandom
 import time
 from Cryptodome.Util import number
 from hashlib import pbkdf2_hmac as HashFunction
+from secrets import SystemRandom
 
 def Num2Text (numbers):
     text = ""
