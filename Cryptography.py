@@ -119,7 +119,6 @@ def decrypt(PrivateKey, Max, ciphertext):
 #####  END OF RSA CODE  #####
 #############################
 
-def Hash(data):
+def Hash(data, salt = urandom(16)): #hash string with a salt that defaults to 16 urandom bytes
     data = data.encode("ASCII")
-    salt = urandom(16)
     return(HashFunction("sha512",data,salt,100000))
