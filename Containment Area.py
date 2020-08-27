@@ -9,14 +9,18 @@ def CreateKeypair(ContactID):
     
     PublicKeyID, PrivateKeyID = GetKeyIDs(PrivateKey)
     SaveKeypair(PublicKeyID, ContactID, PublicKey, Max, PrivateKeyID)
+    return(PublicKey,Max)
 
-def CreateInvite():
+def CreateInvite(ContactName):
     with open("WiFall Key") as WiFallKey:
         WFK = WiFallKey.read()
-        print(Hash(WFK))
-        input()
-        
-CreateInvite()
+        IDpassword = Hash(WFK)[1] #This gets a random salt
+    ContactID = AddContact(1,1,IDpassword)
+    PublicKey,Max = CreateKeypair(ContactID)
+
+ContactName = input("Please enter contact name: ")
+
+CreateInvite(ContactName)
 
 CreateKeypair(ContactID)
 

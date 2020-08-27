@@ -22,7 +22,7 @@ def AddContact(PublicKey,Max,IDpassword):
         data.execute(query, [ContactID,PublicKey,Max,IDpassword,ContactName])
     return(ContactID)
         
-        
+
 
 def GetKeyIDs(PrivateKey):
     with sqlite3.connect("file:data.db?mode=ro", uri=True) as database: #open the database
@@ -70,6 +70,7 @@ with sqlite3.connect("data.db") as data:
                         PublicKey    integer,
                         Max          integer,
                         PrivateKeyID integer,
+                        salt         
                         FOREIGN KEY(KContactID) REFERENCES contacts(ContactID))""")
         query = "INSERT INTO keys VALUES (?,?,?,?,?)"
         data.execute(query, [1,1,1,1,1])
