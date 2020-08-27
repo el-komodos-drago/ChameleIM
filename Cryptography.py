@@ -87,7 +87,7 @@ def GenerateKeypair (p, q):
     # https://www.johndcook.com/blog/2018/12/12/rsa-exponent/
     GCD = GreatestCommonDivisor(PublicKey,phi)
     while GCD != 1:
-        PublicKey = randrange(1000,phi) #Randrange is not cryptographically secure. Doesn't need to be.
+        PublicKey = randint(1000,phi) #Randrange is not cryptographically secure. Doesn't need to be.
         GCD = GreatestCommonDivisor(PublicKey,phi)
     
     #calculate the PublicKey
@@ -127,6 +127,6 @@ def Hash(data, salt = urandom(16)): #hash string with a salt that defaults to 16
     return(HashResult.decode("ANSI"),salt.decode("ANSI"))
 
 t0 = time.time()
-SystemRandom.randrange(1000,10000000000)
+SystemRandom.randint(1000,10000000000)
 t1 = time.time()
 print (t0 - t1)
