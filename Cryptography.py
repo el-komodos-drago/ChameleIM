@@ -127,8 +127,11 @@ def Hash(data, salt = urandom(16)): #hash string with a salt that defaults to 16
     HashResult = HashFunction("sha512",data.encode("utf-8"),salt,100000)
     return(HashResult.decode("ANSI"),salt.decode("ANSI"))
 
+print(GenerateKeypair(RandomPrime(1024),RandomPrime(1024)))
+input()
+
 t0 = time.time()
-for i in range(1000):
+for i in range(100):
     rn = random.SystemRandom().randrange(1000,100000000000000000)
 t1 = time.time()
 print (t1-t0)
