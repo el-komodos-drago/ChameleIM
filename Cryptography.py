@@ -132,6 +132,7 @@ def Hash(data, salt = urandom(32)): #hash string with a salt that defaults to 16
     HashResult = HashFunction("sha512",data.encode("utf-8"),salt,100000)
     return(HashResult.decode("ANSI"),salt.decode("ANSI"))
 
+length = 1024
 for i in range(0,length,256):
     print(i)
 
