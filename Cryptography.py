@@ -107,12 +107,12 @@ def encrypt(PublicKey, Max, plaintext):
 
 def decrypt(PrivateKey, Max, ciphertext):
     length = len(ciphertext) #get the length of the ciphertext
-    ciphertext = ciphertext.encode("ANSI") #convert ciphertext to binary
-    CipherChars = [] #create empty list
-    for i in range(0,length,256): #for every multiple of 256 up to length...
-        CipherChar = ciphertext[i:+256].from_bytes() # convert the bytes from that number
-        #to the next multiple of 256 to an integer
-        CipherChars.append(CipherChar) # append the integer to CipherChars
+    ciphertext = ciphertext.encode("ANSI") #convert to binary
+    CipherChars = [] # create empty list
+    for i in range(0,length,256): # for every multiple of 256 up to the ciphertext's length ...
+        Binary = ciphertext[i:+256] # ... take bytes from that multiple to the next ...
+        CipherChar = int.from_bytes(Binary,byteorder="big") # ... convert them to an integer...
+        CipherChars.append(CipherChar) # ... and append the integer to CipherChars
     
     plaintext = []
     for character in CipherChars: #breaks up the ciphertext into a series of characters and opperates on each of them indiidually.
