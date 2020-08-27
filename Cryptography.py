@@ -3,8 +3,6 @@ print("This code was not created by a cryptographic expert and has not been revi
 print("Under no circumstances should it be used for real world perposes")
 
 from math import sqrt
-from random import randrange
-import random
 from os import urandom
 import time
 from Cryptodome.Util import number
@@ -88,7 +86,7 @@ def GenerateKeypair (p, q):
     # https://www.johndcook.com/blog/2018/12/12/rsa-exponent/
     GCD = GreatestCommonDivisor(PublicKey,phi)
     while GCD != 1:
-        PublicKey = randint(1000,phi) #Randrange is not cryptographically secure. Doesn't need to be.
+        PublicKey = SystemRandom.randrange(1000,phi)
         GCD = GreatestCommonDivisor(PublicKey,phi)
     
     #calculate the PublicKey
@@ -126,10 +124,3 @@ def Hash(data, salt = urandom(16)): #hash string with a salt that defaults to 16
         salt = salt.encode("ANSI")
     HashResult = HashFunction("sha512",data.encode("utf-8"),salt,100000)
     return(HashResult.decode("ANSI"),salt.decode("ANSI"))
-
-
-t0 = time.time()
-for i in range(100000):
-    rn = random.randrange(1000,26141099767522407124589071996517298846970430842332787799773108269317336966424773680636612837808264860439733996597369200715043292969227341979766661919119734066515034992476869219040363806466607435466577922474844744137776408277583004804936390786345970205818751292722677549421369162455455142465066286302081404307740758333342856990595308697944961926377069346615743244864375244803676569764750843013886507319106987396286288367846194680486083257160977836393395533197485368893786901349362397992493633785284394808764899468376394197651704467287367875318966958318400898755491369533150649981779371530981687639423918426567730258017)
-t1 = time.time()
-print (t1-t0)
