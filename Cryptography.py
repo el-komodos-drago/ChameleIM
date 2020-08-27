@@ -131,5 +131,5 @@ t0 = time.time()
 for i in range(100000):
     rn = random.randrange(1000,10000000000)
 t1 = time.time()
-print (t0 - t1)
+print (t1-t0)
 print(rn)
