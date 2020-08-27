@@ -120,5 +120,7 @@ def decrypt(PrivateKey, Max, ciphertext):
 #############################
 
 def Hash(data, salt = urandom(16)): #hash string with a salt that defaults to 16 urandom bytes
-    data = data.encode("ASCII")
-    return(HashFunction("sha512",data,salt,100000))
+    HashResult = HashFunction("sha512",data.encode("utf-8"),salt,100000)
+    return()
+
+print(Hash("Stuff"))
