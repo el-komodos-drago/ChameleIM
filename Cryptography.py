@@ -126,4 +126,6 @@ def Hash(data, salt = urandom(16)): #hash string with a salt that defaults to 16
     HashResult = HashFunction("sha512",data.encode("utf-8"),salt,100000)
     return(HashResult.decode("ANSI"),salt.decode("ANSI"))
 
-print(Hash("Stuff"))
+t0 = time.time()
+t1 = time.time()
+print (t0 - t1)
