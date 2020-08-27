@@ -113,7 +113,7 @@ def decrypt(PrivateKey, Max, ciphertext):
         Binary = ciphertext[i:+256] # ... take bytes from that multiple to the next ...
         CipherChar = int.from_bytes(Binary,byteorder="big") # ... convert them to an integer...
         CipherChars.append(CipherChar) # ... and append the integer to CipherChars
-    
+        print(CipherChar)
     plaintext = []
     for character in CipherChars: #breaks up the ciphertext into a series of characters and opperates on each of them indiidually.
         PlainChar = pow(character, PrivateKey, Max)
