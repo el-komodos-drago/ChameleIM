@@ -128,7 +128,8 @@ def Hash(data, salt = urandom(16)): #hash string with a salt that defaults to 16
     return(HashResult.decode("ANSI"),salt.decode("ANSI"))
 
 t0 = time.time()
-rn = random.randrange(1000,10000000000)
+for i in range(1000):
+    rn = random.randrange(1000,10000000000)
 t1 = time.time()
 print (t0 - t1)
 print(rn)
