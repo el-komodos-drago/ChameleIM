@@ -13,8 +13,7 @@ def RetriveMessages(ContactID):
         print(message)
     #DEV NOTE INSERT CODE HERE
 
-def AddContact(PublicKey,Max,IDpassword):
-    ContactName = input("Please enter the name of the contact: ")
+def AddContact(PublicKey,Max,IDpassword,ContactName):
     with sqlite3.connect("data.db") as database: #open the database
         for row in database.execute("SELECT MAX(ContactID) FROM contacts"):
             ContactID = row[0]+1
