@@ -58,12 +58,10 @@ def OpenInvite():
 def DisplayContact(ContactID):
     print(ContactID)
 
-def RenderContactBar(WindowWidth):
+def RenderContactBar(MaxCharacters):
     ContactBar = tkinter.Frame(master=MainWindow, bg="Light Grey",
                            highlightbackground="black",highlightthickness=1)
     ContactBar.grid(row=1, column=0,sticky="nsew")
-    
-    MaxCharacters = (WindowWidth/40)-2
     
     #Contact list:
     ContactButtons = {}
@@ -86,7 +84,9 @@ def RenderContactBar(WindowWidth):
     return(ContactBar)
 
 def Resize(details):
-    print(details.width)
+    MaxCharacters = (details.width/40)-2
+    RenderContactBar(MaxCharacters)
+    
 
 MainWindow = tkinter.Tk()
 MainWindow.minsize(600,100)
@@ -101,10 +101,8 @@ header.grid(row=0, column=0, columnspan=3,sticky="ew")
 MainWindow.rowconfigure(1,weight=1) #resize the buttom row
 #Column 1
 MainWindow.columnconfigure(0, weight=1,minsize=150) #resize ContactBar
-header.bind("<Configure>",Resize)
 ContactBar = RenderContactBar(600)
-print("A")
-
+header.bind("<Configure>",Resize)
 
 #Column 2
 MainWindow.columnconfigure(1, weight=2,minsize=300)
