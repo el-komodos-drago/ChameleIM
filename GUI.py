@@ -64,18 +64,20 @@ def RenderContactBar():
     ContactBar.grid(row=1, column=0,sticky="nsew")
     
     MainWindow.update_idletasks()
-    WindowWidth = MainWindow.winfo_width()
+    MaxCharacters = (MainWindow.winfo_width()/40)-2
     
     #Contact list:
     ContactButtons = {}
     contacts = RetriveContacts()
     for contact in contacts:
-        Name,ID = contact
+        ContactName,ID = contact
+        if len(ContactName) > MaxCharacters:
+            ContactName = ContactName[0:MaxCharacters-3]+"..." # Cut length of contact name
         
-        ContactButtons[ID] = tkinter.Button(master=ContactBar,text=Name,
+        ContactButtons[ID] = tkinter.Button(master=ContactBar,text=ContactName,
                                             bg="Light Grey", relief = tkinter.FLAT,
                                             command=lambda a=ID: DisplayContact(a))
-        ContactButtons[ID].pack(side=tkinter.TOP,anchor="w")
+        ContactButtons[ID].pack(padx=80, side=tkinter.TOP,anchor="w")
     
     #Add contact button:
     AcceptInviteButton = tkinter.Button(master=ContactBar,text="➕ Accept Invite",
