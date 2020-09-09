@@ -96,7 +96,7 @@ MainWindow.minsize(600,100)
 
 ### ROW 0 ###
 FullWidth = tkinter.Frame(master=MainWindow)
-header.grid(row=0, column=0, columnspan=3,sticky="ew")
+FullWidth.grid(row=0, column=0, columnspan=3,sticky="ew")
 
 ### ROW 1 ###
 header = tkinter.Frame(master=MainWindow, bg="Dark Grey")
