@@ -58,13 +58,12 @@ def OpenInvite():
 def DisplayContact(ContactID):
     print(ContactID)
 
-def RenderContactBar():
+def RenderContactBar(WindowWidth):
     ContactBar = tkinter.Frame(master=MainWindow, bg="Light Grey",
                            highlightbackground="black",highlightthickness=1)
     ContactBar.grid(row=1, column=0,sticky="nsew")
     
-    MainWindow.update_idletasks()
-    MaxCharacters = (MainWindow.winfo_width()/40)-2
+    MaxCharacters = (WindowWidth/40)-2
     
     #Contact list:
     ContactButtons = {}
@@ -86,6 +85,9 @@ def RenderContactBar():
     AcceptInviteButton.pack(padx=10, side=tkinter.TOP,anchor="w")
     return(ContactBar)
 
+def Resize(details):
+    print(details.width)
+
 MainWindow = tkinter.Tk()
 MainWindow.minsize(600,100)
 
@@ -100,6 +102,7 @@ MainWindow.rowconfigure(1,weight=1) #resize the buttom row
 #Column 1
 MainWindow.columnconfigure(0, weight=1,minsize=150) #resize ContactBar
 ContactBar = RenderContactBar()
+MainWindow.bind("<Configure>",Resize)
 
 #Column 2
 MainWindow.columnconfigure(1, weight=2,minsize=300)
@@ -114,3 +117,5 @@ SendInviteButton = tkinter.Button(master=header, text="📨 Send Invite", bg="Da
                                   highlightbackground="black", highlightthickness=1,
                                   relief = tkinter.FLAT, command=SendInvite)
 SendInviteButton.pack(side=tkinter.LEFT)
+
+MainWindow.mainloop()
