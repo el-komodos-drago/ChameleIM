@@ -100,9 +100,9 @@ FullWidth.grid(row=0, column=0, columnspan=3,sticky="ew")
 
 ### ROW 1 ###
 header = tkinter.Frame(master=MainWindow, bg="Dark Grey")
-header.grid(row=2, column=0, columnspan=3,sticky="ew")
+header.grid(row=1, column=0, columnspan=3,sticky="ew")
 ### ROW 2 ###
-MainWindow.rowconfigure(1,weight=1) #resize the buttom row
+MainWindow.rowconfigure(2,weight=1) #resize the buttom row
 #Column 1
 MainWindow.columnconfigure(0, weight=1,minsize=150) #resize ContactBar
 ContactBar = RenderContactBar(600)
@@ -111,11 +111,11 @@ header.bind("<Configure>",Resize)
 #Column 2
 MainWindow.columnconfigure(1, weight=2,minsize=300)
 MessageList = tkinter.Frame(master=MainWindow)
-MessageList.grid(row=1, column=1)
+MessageList.grid(row=2, column=1)
 #Column 3
 MainWindow.columnconfigure(2, weight=1,minsize=150)
 RecentMessages = tkinter.Frame(master=MainWindow)
-RecentMessages.grid(row=1, column=2)
+RecentMessages.grid(row=2, column=2)
 
 SendInviteButton = tkinter.Button(master=header, text="📨 Send Invite", bg="Dark Grey", 
                                   highlightbackground="black", highlightthickness=1,
