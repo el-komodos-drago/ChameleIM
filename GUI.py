@@ -106,11 +106,11 @@ ContactsHeader.grid(row=1, column=0, sticky="ew")
 #Column 2
 MessagesHeader = tkinter.Frame(master=MainWindow, bg="Dark Grey",
                                highlightbackground="black", highlightthickness=1)
-MessagesHeader.grid(row=1, column=0, sticky="ew")
+MessagesHeader.grid(row=1, column=1, sticky="ew")
 #Column 3
 RecentHeader = tkinter.Frame(master=MainWindow, bg="Dark Grey",
                                highlightbackground="black", highlightthickness=1)
-RecentHeader.grid(row=1, column=0, sticky="ew")
+RecentHeader.grid(row=1, column=2, sticky="ew")
 ### ROW 3 ###
 MainWindow.rowconfigure(2,weight=1) #resize the buttom row
 #Column 1
