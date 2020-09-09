@@ -115,7 +115,7 @@ RecentHeader.grid(row=1, column=2, sticky="ew")
 MainWindow.rowconfigure(2,weight=1) #resize the buttom row
 #Column 1
 MainWindow.columnconfigure(0, weight=1,minsize=150) #resize ContactBar
-ContactBar = RenderContactBar(600)
+ContactBar = RenderContactBar(15)
 FullWidth.bind("<Configure>",Resize)
 
 #Column 2
