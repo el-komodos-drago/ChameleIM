@@ -93,7 +93,8 @@ header.grid(row=0, column=0, columnspan=3,sticky="ew")
 MainWindow.rowconfigure(1,weight=1) #resize the buttom row
 #Column 1
 MainWindow.columnconfigure(0, weight=1,minsize=150) #resize ContactBar
-
+MainWindow.update_idletasks()
+print(MainWindow.winfo_width())
 ContactBar = RenderContactBar()
 
 #Column 2
@@ -109,4 +110,3 @@ SendInviteButton = tkinter.Button(master=header, text="📨 Send Invite", bg="Da
                                   highlightbackground="black", highlightthickness=1,
                                   relief = tkinter.FLAT, command=SendInvite)
 SendInviteButton.pack(side=tkinter.LEFT)
-print(SendInviteButton.winfo_vrootwidth())
