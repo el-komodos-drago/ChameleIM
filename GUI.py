@@ -77,13 +77,13 @@ def RenderContactBar():
         ContactButtons[ID] = tkinter.Button(master=ContactBar,text=ContactName,
                                             bg="Light Grey", relief = tkinter.FLAT,
                                             command=lambda a=ID: DisplayContact(a))
-        ContactButtons[ID].pack(padx=20, side=tkinter.TOP,anchor="w")
+        ContactButtons[ID].pack(padx=10, side=tkinter.TOP,anchor="w")
     
     #Add contact button:
     AcceptInviteButton = tkinter.Button(master=ContactBar,text="➕ Accept Invite",
                                     bg="Light Grey", relief = tkinter.FLAT,
                                     command=OpenInvite)
-    AcceptInviteButton.pack(padx=20, side=tkinter.TOP,anchor="w")
+    AcceptInviteButton.pack(padx=10, side=tkinter.TOP,anchor="w")
     return(ContactBar)
 
 MainWindow = tkinter.Tk()
