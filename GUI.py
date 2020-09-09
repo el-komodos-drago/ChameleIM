@@ -12,7 +12,6 @@ def SendInvite():
     ContactName = ""
     while ContactName == "":
         ContactName = askstring("input", "What is the name of the contact you want to add?")
-        
     if ContactName == None:
         return()
     InputFile = selectfile(title="Select image to hide invite in",
@@ -64,11 +63,13 @@ def RenderContactBar():
                            highlightbackground="black",highlightthickness=1)
     ContactBar.grid(row=1, column=0,sticky="nsew")
     
+    print(MainWindow.winfo_width())
     #Contact list:
     ContactButtons = {}
     contacts = RetriveContacts()
     for contact in contacts:
         Name,ID = contact
+        
         ContactButtons[ID] = tkinter.Button(master=ContactBar,text=Name,
                                             bg="Light Grey", relief = tkinter.FLAT,
                                             command=lambda a=ID: DisplayContact(a))
