@@ -45,3 +45,51 @@ def CheckPrime (number): # checks if a number is prime
         if number % iteration == 0:
             return(False)
     return(True)
+
+
+
+def CreateInvite(ContactName):
+    with open("WiFall Key") as WiFallKey:
+        WFK = WiFallKey.read()
+    IDpassword = Hash(WFK)[1] #This gets a random salt
+    ContactID = AddContact(1,1,IDpassword,ContactName)
+    PublicKeyID,PublicKey,Max = CreateKeypair(ContactID)
+    PublicKeyID = PublicKeyID.to_bytes(8,"big")
+    PublicKey = PublicKey.to_bytes(256,"big")
+    Max = Max.to_bytes(256,"big")
+    SecretData = (PublicKeyID+PublicKey+Max).decode("ANSI")
+    print(SecretData)
+    filename = input("Input file name: ")
+    destination = input("Output file name: ")
+    file = lsb.hide(filename, SecretData)
+    file.save(destination)
+    return(SecretData)
+
+def encrypt(PublicKey, Max, plaintext):
+    ciphertext = b''
+    for character in plaintext: #breaks up plaintext into a series of characters and then for each of them ...
+        CharCode = ord(character) #converts the character into it's numeric representation
+        CipherChar = pow(CharCode, PublicKey, Max)
+        # Multiply the numeric representation of the character by itself the number of times
+        # specified by the public key, then subtract Max from it until the number left is
+        # less than Max.
+        ciphertext = ciphertext + CipherChar.to_bytes(256,"big") # Attach the encrypted character to the end of the ciphertext
+    return(ciphertext.decode("ANSI"))
+
+def decrypt(PrivateKey, Max, ciphertext):
+    length = len(ciphertext) #get the length of the ciphertext
+    ciphertext = ciphertext.encode("ANSI") #convert to binary
+    CipherChars = [] # create empty list
+    for i in range(0,length,256): # for every multiple of 256 up to the ciphertext's length ...
+        Binary = ciphertext[i:i+256] # ... take bytes from that multiple to the next ...
+        CipherChar = int.from_bytes(Binary,byteorder="big") # ... convert them to an integer...
+        CipherChars.append(CipherChar) # ... and append the integer to CipherChars
+    
+    plaintext = []
+    for character in CipherChars: #breaks up the ciphertext into a series of characters and opperates on each of them indiidually.
+        PlainChar = pow(character, PrivateKey, Max)
+        # Multiply the numeric representation of the character by itself the number of times
+        # specified by the public key, then subtract Max from it until the number left is
+        # less than Max.
+        plaintext.append(PlainChar) # Attach the encrypted character to the end of the plaintext
+    return (plaintext)
