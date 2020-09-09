@@ -79,7 +79,6 @@ def RenderContactBar(MaxCharacters):
     #Add contact button:
     AcceptInviteButton = tkinter.Button(master=ContactBar,text="➕ Accept Invite",
                                     bg="Light Grey", relief = tkinter.FLAT,
-                                    highlightbackground="black", highlightthickness=1,
                                     command=OpenInvite)
     AcceptInviteButton.pack(padx=10, side=tkinter.TOP,anchor="w")
     return(ContactBar)
@@ -117,6 +116,7 @@ RecentMessages.grid(row=1, column=2)
 SendInviteButton = tkinter.Button(master=header, text="📨 Send Invite", bg="Dark Grey", 
                                   highlightbackground="black", highlightthickness=1,
                                   relief = tkinter.FLAT, command=SendInvite)
+SendInviteButton.config(highlightbackground="black", highlightthickness=1)
 SendInviteButton.pack(side=tkinter.LEFT)
 
 MainWindow.mainloop()
