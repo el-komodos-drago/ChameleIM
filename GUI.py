@@ -95,6 +95,7 @@ MainWindow.minsize(600,100)
 #https://code.activestate.com/recipes/580735-frame-with-border-color-for-tkinter/
 
 ### ROW 0 ###
+#Row 1 consists of a frame that fills the window but has no height. It is used by resize
 FullWidth = tkinter.Frame(master=MainWindow)
 FullWidth.grid(row=0, column=0, columnspan=3,sticky="ew")
 
@@ -106,7 +107,7 @@ MainWindow.rowconfigure(2,weight=1) #resize the buttom row
 #Column 1
 MainWindow.columnconfigure(0, weight=1,minsize=150) #resize ContactBar
 ContactBar = RenderContactBar(600)
-header.bind("<Configure>",Resize)
+FullWidth.bind("<Configure>",Resize)
 
 #Column 2
 MainWindow.columnconfigure(1, weight=2,minsize=300)
