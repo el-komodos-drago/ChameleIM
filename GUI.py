@@ -100,7 +100,7 @@ FullWidth.grid(row=0, column=0, columnspan=3,sticky="ew")
 
 ### ROW 1 ###
 header = tkinter.Frame(master=MainWindow, bg="Dark Grey")
-header.grid(row=1, column=0, columnspan=3,sticky="ew")
+header.grid(row=2, column=0, columnspan=3,sticky="ew")
 ### ROW 2 ###
 MainWindow.rowconfigure(1,weight=1) #resize the buttom row
 #Column 1
