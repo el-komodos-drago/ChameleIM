@@ -63,7 +63,6 @@ def RenderContactBar():
                            highlightbackground="black",highlightthickness=1)
     ContactBar.grid(row=1, column=0,sticky="nsew")
     
-    print(header.winfo_width())
     #Contact list:
     ContactButtons = {}
     contacts = RetriveContacts()
@@ -94,6 +93,7 @@ header.grid(row=0, column=0, columnspan=3,sticky="ew")
 MainWindow.rowconfigure(1,weight=1) #resize the buttom row
 #Column 1
 MainWindow.columnconfigure(0, weight=1,minsize=150) #resize ContactBar
+print(header.winfo_width())
 ContactBar = RenderContactBar()
 
 #Column 2
