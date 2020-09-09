@@ -9,6 +9,8 @@ from Contacts import RetriveContacts
 from MainLibrary import CreateInvite, AcceptInvite
 
 def SendInvite():
+    MainWindow.update_idletasks()
+    print(MainWindow.winfo_width())
     ContactName = ""
     while ContactName == "":
         ContactName = askstring("input", "What is the name of the contact you want to add?")
