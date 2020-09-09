@@ -114,7 +114,7 @@ RecentMessages = tkinter.Frame(master=MainWindow)
 RecentMessages.grid(row=1, column=2)
 
 SendInviteButton = tkinter.Button(master=header, text="📨 Send Invite", bg="Dark Grey", 
-                                  highlightbackground="green", highlightthickness=1,
+                                  highlightbackground="black", highlightthickness=1,
                                   relief = tkinter.RAISED, command=SendInvite)
 SendInviteButton.config(highlightbackground="#000", highlightcolor="#000")
 SendInviteButton.pack(side=tkinter.LEFT)
