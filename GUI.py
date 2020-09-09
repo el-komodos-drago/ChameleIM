@@ -61,7 +61,7 @@ def DisplayContact(ContactID):
 def RenderContactBar(MaxCharacters):
     ContactBar = tkinter.Frame(master=MainWindow, bg="Light Grey",
                            highlightbackground="black",highlightthickness=1)
-    ContactBar.grid(row=1, column=0,sticky="nsew")
+    ContactBar.grid(row=2, column=0,sticky="nsew")
     
     #Contact list:
     ContactButtons = {}
