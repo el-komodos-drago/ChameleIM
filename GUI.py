@@ -95,13 +95,13 @@ MainWindow.minsize(600,100)
 #https://code.activestate.com/recipes/580735-frame-with-border-color-for-tkinter/
 
 ### ROW 0 ###
-#Row 1 consists of a frame that fills the window but has no height. It is used by resize
-FullWidth = tkinter.Frame(master=MainWindow)
-FullWidth.grid(row=0, column=0, columnspan=3,sticky="ew")
+FullWidth = tkinter.Frame(master=MainWindow) # Full width is a 0 height 100% width frame
+FullWidth.grid(row=0, column=0, columnspan=3,sticky="ew")#used by contact bar to resize
 
 ### ROW 1 ###
-header = tkinter.Frame(master=MainWindow, bg="Dark Grey")
-header.grid(row=1, column=0, columnspan=3,sticky="ew")
+ContactsHeader = tkinter.Frame(master=MainWindow, bg="Dark Grey",
+                               highlightbackground="black", highlightthickness=1)
+ContactsHeader.grid(row=1, column=0, sticky="ew")
 ### ROW 2 ###
 MainWindow.rowconfigure(2,weight=1) #resize the buttom row
 #Column 1
@@ -118,8 +118,7 @@ MainWindow.columnconfigure(2, weight=1,minsize=150)
 RecentMessages = tkinter.Frame(master=MainWindow)
 RecentMessages.grid(row=2, column=2)
 
-SendInviteButton = tkinter.Button(master=header, text="📨 Send Invite", bg="Dark Grey", 
-                                  highlightbackground="black", highlightthickness=1,
+SendInviteButton = tkinter.Button(master=ContactsHeader, text="📨 Send Invite", bg="Dark Grey", 
                                   relief = tkinter.FLAT, command=SendInvite)
 SendInviteButton.config(highlightbackground="#000", highlightcolor="#000")
 SendInviteButton.pack(side=tkinter.LEFT)
