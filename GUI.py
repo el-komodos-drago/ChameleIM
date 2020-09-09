@@ -12,6 +12,7 @@ def SendInvite():
     ContactName = ""
     while ContactName == "":
         ContactName = askstring("input", "What is the name of the contact you want to add?")
+        
     if ContactName == None:
         return()
     InputFile = selectfile(title="Select image to hide invite in",
