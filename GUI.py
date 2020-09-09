@@ -101,7 +101,7 @@ header.grid(row=0, column=0, columnspan=3,sticky="ew")
 MainWindow.rowconfigure(1,weight=1) #resize the buttom row
 #Column 1
 MainWindow.columnconfigure(0, weight=1,minsize=150) #resize ContactBar
-ContactBar = RenderContactBar()
+ContactBar = RenderContactBar(600)
 MainWindow.bind("<Configure>",Resize)
 
 #Column 2
