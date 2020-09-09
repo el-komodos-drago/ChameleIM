@@ -62,7 +62,6 @@ def RenderContactBar(MaxCharacters):
     ContactBar = tkinter.Frame(master=MainWindow, bg="Light Grey",
                            highlightbackground="black",highlightthickness=1)
     ContactBar.grid(row=2, column=0,sticky="nsew")
-    
     #Contact list:
     ContactButtons = {}
     contacts = RetriveContacts()
@@ -70,7 +69,6 @@ def RenderContactBar(MaxCharacters):
         ContactName,ID = contact
         if len(ContactName) > MaxCharacters:
             ContactName = ContactName[0:MaxCharacters-3]+"..." # Cut length of contact name
-        
         ContactButtons[ID] = tkinter.Button(master=ContactBar,text=ContactName,
                                             bg="Light Grey", relief = tkinter.FLAT,
                                             command=lambda a=ID: DisplayContact(a))
@@ -103,6 +101,10 @@ FullWidth.grid(row=0, column=0, columnspan=3,sticky="ew")#used by contact bar to
 ContactsHeader = tkinter.Frame(master=MainWindow, bg="Dark Grey",
                                highlightbackground="black", highlightthickness=1)
 ContactsHeader.grid(row=1, column=0, sticky="ew")
+
+SendInviteButton = tkinter.Button(master=ContactsHeader, text="📨 Send Invite", bg="Dark Grey", 
+                                  relief = tkinter.FLAT, command=SendInvite)
+SendInviteButton.pack(side=tkinter.LEFT)
 #Column 2
 MessagesHeader = tkinter.Frame(master=MainWindow, bg="Dark Grey",
                                highlightbackground="black", highlightthickness=1)
@@ -126,10 +128,5 @@ MessageList.grid(row=2, column=1)
 MainWindow.columnconfigure(2, weight=1,minsize=150)
 RecentMessages = tkinter.Frame(master=MainWindow)
 RecentMessages.grid(row=2, column=2)
-
-SendInviteButton = tkinter.Button(master=ContactsHeader, text="📨 Send Invite", bg="Dark Grey", 
-                                  relief = tkinter.FLAT, command=SendInvite)
-SendInviteButton.config(highlightbackground="#000", highlightcolor="#000")
-SendInviteButton.pack(side=tkinter.LEFT)
 
 MainWindow.mainloop()
