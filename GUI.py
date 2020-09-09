@@ -93,7 +93,8 @@ header.grid(row=0, column=0, columnspan=3,sticky="ew")
 MainWindow.rowconfigure(1,weight=1) #resize the buttom row
 #Column 1
 MainWindow.columnconfigure(0, weight=1,minsize=150) #resize ContactBar
-print(header.winfo_geometry())
+header.update_idletasks()
+print(header.winfo_width())
 ContactBar = RenderContactBar()
 
 #Column 2
