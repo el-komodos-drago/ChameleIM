@@ -94,9 +94,13 @@ MainWindow.minsize(600,100)
 # Border colors as suggested by
 #https://code.activestate.com/recipes/580735-frame-with-border-color-for-tkinter/
 
+### ROW 0 ###
+FullWidth = tkinter.Frame(master=MainWindow)
+header.grid(row=0, column=0, columnspan=3,sticky="ew")
+
 ### ROW 1 ###
 header = tkinter.Frame(master=MainWindow, bg="Dark Grey")
-header.grid(row=0, column=0, columnspan=3,sticky="ew")
+header.grid(row=1, column=0, columnspan=3,sticky="ew")
 ### ROW 2 ###
 MainWindow.rowconfigure(1,weight=1) #resize the buttom row
 #Column 1
