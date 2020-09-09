@@ -77,7 +77,7 @@ def RenderContactBar():
         ContactButtons[ID] = tkinter.Button(master=ContactBar,text=ContactName,
                                             bg="Light Grey", relief = tkinter.FLAT,
                                             command=lambda a=ID: DisplayContact(a))
-        ContactButtons[ID].pack(padx=80, side=tkinter.TOP,anchor="w")
+        ContactButtons[ID].pack(padx=20, side=tkinter.TOP,anchor="w")
     
     #Add contact button:
     AcceptInviteButton = tkinter.Button(master=ContactBar,text="➕ Accept Invite",
