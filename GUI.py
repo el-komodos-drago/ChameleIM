@@ -107,5 +107,3 @@ SendInviteButton = tkinter.Button(master=header, text="📨 Send Invite", bg="Da
                                   highlightbackground="black", highlightthickness=1,
                                   relief = tkinter.FLAT, command=SendInvite)
 SendInviteButton.pack(side=tkinter.LEFT)
-
-tkinter.mainloop()
