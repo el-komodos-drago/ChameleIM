@@ -63,7 +63,7 @@ def RenderContactBar():
                            highlightbackground="black",highlightthickness=1)
     ContactBar.grid(row=1, column=0,sticky="nsew")
     
-    print(MainWindow.winfo_width())
+    print(header.winfo_width())
     #Contact list:
     ContactButtons = {}
     contacts = RetriveContacts()
