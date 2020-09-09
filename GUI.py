@@ -94,15 +94,24 @@ MainWindow.minsize(600,100)
 # Border colors as suggested by
 #https://code.activestate.com/recipes/580735-frame-with-border-color-for-tkinter/
 
-### ROW 0 ###
+### ROW 1 ###
 FullWidth = tkinter.Frame(master=MainWindow) # Full width is a 0 height 100% width frame
 FullWidth.grid(row=0, column=0, columnspan=3,sticky="ew")#used by contact bar to resize
 
-### ROW 1 ###
+### ROW 2 ###
+#Column 1
 ContactsHeader = tkinter.Frame(master=MainWindow, bg="Dark Grey",
                                highlightbackground="black", highlightthickness=1)
 ContactsHeader.grid(row=1, column=0, sticky="ew")
-### ROW 2 ###
+#Column 2
+MessagesHeader = tkinter.Frame(master=MainWindow, bg="Dark Grey",
+                               highlightbackground="black", highlightthickness=1)
+MessagesHeader.grid(row=1, column=0, sticky="ew")
+#Column 3
+RecentHeader = tkinter.Frame(master=MainWindow, bg="Dark Grey",
+                               highlightbackground="black", highlightthickness=1)
+RecentHeader.grid(row=1, column=0, sticky="ew")
+### ROW 3 ###
 MainWindow.rowconfigure(2,weight=1) #resize the buttom row
 #Column 1
 MainWindow.columnconfigure(0, weight=1,minsize=150) #resize ContactBar
