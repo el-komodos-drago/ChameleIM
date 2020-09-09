@@ -102,7 +102,7 @@ MainWindow.rowconfigure(1,weight=1) #resize the buttom row
 #Column 1
 MainWindow.columnconfigure(0, weight=1,minsize=150) #resize ContactBar
 ContactBar = RenderContactBar(600)
-MainWindow.bind("<Configure>",Resize)
+header.bind("<Configure>",Resize)
 
 #Column 2
 MainWindow.columnconfigure(1, weight=2,minsize=300)
