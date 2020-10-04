@@ -74,7 +74,7 @@ def RenderContactBar(MaxCharacters):
         if len(ContactName) > MaxCharacters:
             ContactName = ContactName[0:int(MaxCharacters-3)]+"..." # Cut length of contact name
         ContactButtons[ID] = tkinter.Button(master=ContactBar,text=ContactName,
-                                            font="Arial",
+                                            font=CourierNew,
                                             bg="Light Grey", relief = tkinter.FLAT,
                                             command=lambda a=ID: DisplayContact(a))
         ContactButtons[ID].pack(padx=10, side=tkinter.TOP,anchor="w")
@@ -87,12 +87,8 @@ def RenderContactBar(MaxCharacters):
     return(ContactBar)
 
 def Resize(details):
-    MaxCharacters = (details.width/45)-2
-    #MainWindow.columnconfigure(0, weight=1,minsize=details.width/4) #resize ContactBar
-    #MainWindow.columnconfigure(1, weight=2,minsize=details.width/2)
-    #MainWindow.columnconfigure(2, weight=1,minsize=details.width/4)
-    
-    #ContactBar = RenderContactBar(MaxCharacters)
+    MaxCharacters = (details.width/40)-2
+    RenderContactBar(MaxCharacters)
     
 
 MainWindow = tkinter.Tk()
@@ -101,10 +97,9 @@ MainWindow.minsize(600,100)
 # Border colors as suggested by
 #https://code.activestate.com/recipes/580735-frame-with-border-color-for-tkinter/
 
-
 ### ROW 1 ###
 FullWidth = tkinter.Frame(master=MainWindow) # Full width is a 0 height 100% width frame
-FullWidth.grid(row=0, column=0, columnspan=3,sticky="ew")#used by contact bar to resize
+FullWidth.grid(row=0, column=0, columnspan=4,sticky="ew")#used by contact bar to resize
 
 ### ROW 2 ###
 #Column 1
@@ -118,26 +113,26 @@ SendInviteButton.pack(side=tkinter.LEFT)
 #Column 2
 MessagesHeader = tkinter.Frame(master=MainWindow, bg="Dark Grey",
                                highlightbackground="black", highlightthickness=1)
-MessagesHeader.grid(row=1, column=1, sticky="ew")
+MessagesHeader.grid(row=1, column=1, columnspan=2, sticky="ew")
 #Column 3
 RecentHeader = tkinter.Frame(master=MainWindow, bg="Dark Grey",
                                highlightbackground="black", highlightthickness=1)
-RecentHeader.grid(row=1, column=2, sticky="ew")
+RecentHeader.grid(row=1, column=3, sticky="ew")
 ### ROW 3 ###
 MainWindow.rowconfigure(2,weight=1) #resize the buttom row
 #Column 1
-MainWindow.columnconfigure(0, weight=1,minsize=150) #resize ContactBar
+MainWindow.grid_columnconfigure(0, weight=1,minsize=150,uniform="25%") #resize ContactBar
 ContactBar = RenderContactBar(15)
+FullWidth.bind("<Configure>",Resize)
 
 #Column 2
-MainWindow.columnconfigure(1, weight=2,minsize=300)
+MainWindow.grid_columnconfigure(1, weight=1,minsize=150,uniform="25%")
+MainWindow.grid_columnconfigure(2, weight=1,minsize=150,uniform="25%")
 MessageList = tkinter.Frame(master=MainWindow)
-MessageList.grid(row=2, column=1)
+MessageList.grid(row=2, column=1, columnspan=2)
 #Column 3
-MainWindow.columnconfigure(2, weight=1,minsize=150)
+MainWindow.grid_columnconfigure(2, weight=1,minsize=150,uniform="25%")
 RecentMessages = tkinter.Frame(master=MainWindow)
-RecentMessages.grid(row=2, column=2)
-
-FullWidth.bind("<Configure>",Resize)
+RecentMessages.grid(row=2, column=3)
 
 MainWindow.mainloop()

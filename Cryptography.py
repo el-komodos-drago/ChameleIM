@@ -77,7 +77,7 @@ def MultiplicitveInverse(PublicKey, phi): #Euclid's Extended Algorithm
 
 def GenerateKeypair (p, q):
     Max = p * q
-    phi = (p-1) * (q-1) #phi is the totient of Max
+    phi = (p-1) * (q-1) #phi is the totient of Max using Carmichael's totient function
     
     # Pick e
     if phi <= 65537:

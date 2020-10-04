@@ -1,4 +1,4 @@
-from Cryptography import encrypt, decrypt, GenerateKeypair, RandomPrime
+
 
 def Num2String(integer):
     itteration = 256
@@ -33,8 +33,10 @@ def CreateKeypair(ContactID):
     SaveKeypair(PublicKeyID, ContactID, PublicKey, Max, PrivateKeyID,salt)
     return(PublicKeyID,PublicKey,Max)
 
-for attempt in CreateKeypair(1):
-    print(attempt)
+ContactName = "AVeryLongName"
+MaxCharacters = 10
+ContactName = ContactName[0:(MaxCharacters-3)]+"..."
+print(ContactName)
 
 #string = Num2String(1259)
 #print(string)

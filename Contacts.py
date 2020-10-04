@@ -58,6 +58,16 @@ def RetriveMessages(ContactID):
         print(message)
     #DEV NOTE INSERT CODE HERE
 
+def RetriveRecentMessages():
+    query = """SELECT MessageID, contacts.ContactName, keys.PrivateKeyID
+                   FROM messages INER JOIN keys ON PublicKeyID = keys.PublicKeyID
+                   INER JOIN contacts ON MContactID = contacts.ContactID
+                   WHERE Mine != 1
+                   ORDER BY time DESC
+                   LIMIT 10"""
+    with sqlite3.connect("file:data.db?mode=ro", uri=True) as database:
+        messages = database.execute(query)
+    return(messages)
 
 with sqlite3.connect("data.db") as data: 
     try: #check tables exist
