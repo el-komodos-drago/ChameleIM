@@ -94,7 +94,7 @@ def DisplayContact(ContactID):
     global MessageListInner
     MessageListInner.destroy()
     MessageListInner = tkinter.Frame(master=MessageListScrollBox, bg="Light Grey")
-    MessageListInner.pack(padx = 10,fill=tkinter.X)
+    MessageListInner.pack(fill=tkinter.X)
     
     messages = RetriveMessages(ContactID)
     for message in messages:
@@ -112,7 +112,7 @@ def DisplayContact(ContactID):
                                          bg="Dark Grey", relief = tkinter.FLAT)
         MessageTextLabel.pack(anchor="w")
         
-        MessageFrame.pack(pady = 10,fill=tkinter.X)
+        MessageFrame.pack(pady = 5,fill=tkinter.X)
 
 def RenderContactBar(MaxWidth):
     CourierNew = Font(family="Courier New")
@@ -211,11 +211,11 @@ def CreateMessageList():
                                           highlightthickness=0, yscrollcommand=MLScrollBar.set)
     MLScrollBar.config(command=MessageListScrollBox.yview)
     MLScrollBar.pack(side=tkinter.RIGHT,fill=tkinter.Y)
-    MessageListScrollBox.pack(fill=tkinter.BOTH)
+    MessageListScrollBox.pack(fill=tkinter.BOTH,padx = 10, pady = 10)
     
     global MessageListInner
     MessageListInner = tkinter.Frame(master=MessageListScrollBox, bg="Light Grey")
-    MessageListInner.pack(padx = 10)
+    MessageListInner.pack()
     
     #Dev Note: Send Message Box Here
 
