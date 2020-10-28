@@ -105,7 +105,8 @@ def DisplayContact(ContactID):
         else:
             MessageFrom = ContactName
         MessageFromLabel = tkinter.Label(master=MessageFrame,text=MessageFrom,
-                                         bg="Dark Grey", font="bold", relief = tkinter.FLAT)
+                                         bg="Dark Grey", relief = tkinter.FLAT,
+                                         font="Arial 11 bold")
         MessageFromLabel.pack(anchor="w")
         MessageText = GetMessageText(message[1], message[3],message[2])
         MessageTextLabel = tkinter.Label(master=MessageFrame,text=MessageText,
