@@ -190,7 +190,7 @@ def RenderRecentMessages():
                                         activestyle="none", yscrollcommand=MScrollBar.set)
     MScrollBar.config(command=RecentMessageList.yview)
     MScrollBar.pack(side=tkinter.RIGHT,fill=tkinter.Y)
-    RecentMessageList.pack(padx=10, anchor="w")
+    RecentMessageList.pack(padx=10, anchor="w", fill=tkinter.Y)
     
     messages = RetriveRecentMessages()
     global RMContactIDs
