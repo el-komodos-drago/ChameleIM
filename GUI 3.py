@@ -210,8 +210,8 @@ def CreateMessageList():
     MessageListScrollBox = tkinter.Canvas(MessageList, bg="Light Grey", relief = tkinter.FLAT,
                                           highlightthickness=0, yscrollcommand=MLScrollBar.set)
     MLScrollBar.config(command=MessageListScrollBox.yview)
-    MLScrollBar.pack(side=tkinter.RIGHT,fill=tkinter.BOTH)
-    MessageListScrollBox.pack()
+    MLScrollBar.pack(side=tkinter.RIGHT,fill=tkinter.Y)
+    MessageListScrollBox.pack(fill=tkinter.BOTH)
     
     global MessageListInner
     MessageListInner = tkinter.Frame(master=MessageListScrollBox, bg="Light Grey")
