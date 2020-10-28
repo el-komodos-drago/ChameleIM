@@ -74,7 +74,6 @@ def RenderContactBar(MaxCharacters):
         if len(ContactName) > MaxCharacters:
             ContactName = ContactName[0:int(MaxCharacters-3)]+"..." # Cut length of contact name
         ContactButtons[ID] = tkinter.Button(master=ContactBar,text=ContactName,
-                                            font="Arial",
                                             bg="Light Grey", relief = tkinter.FLAT,
                                             command=lambda a=ID: DisplayContact(a))
         ContactButtons[ID].pack(padx=10, side=tkinter.TOP,anchor="w")

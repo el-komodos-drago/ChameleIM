@@ -34,7 +34,13 @@ def RetriveContacts():
                    ORDER BY time"""
         contacts = database.execute(query)
     return(contacts)
-            
+
+def GetContactName(ContactID):
+    with sqlite3.connect("file:data.db?mode=ro", uri=True) as database:
+        query = """SELECT ContactName FROM contacts WHERE ContactID = (?)"""
+        for row in database.execute(query, [str(ContactID)]):
+            ContactName = row[0]
+    return(ContactName)
 
 def IndexMessage(ContactID, PublicKeyID, mine):
     TimeSent = int(time.time())
@@ -48,26 +54,27 @@ def IndexMessage(ContactID, PublicKeyID, mine):
 
 def RetriveMessages(ContactID):
     with sqlite3.connect("file:data.db?mode=ro", uri=True) as database:
-        query = """SELECT MessageID, Mine, keys.PrivateKeyID
+        query = """SELECT Mine, MessageID, keys.Max, keys.PrivateKeyID
                    FROM messages INER JOIN keys ON 
-                   PublicKeyID = keys.PublicKeyID
+                   MPublicKeyID = keys.PublicKeyID
                    WHERE MContactID = (?)
                    ORDER BY time"""
         messages = database.execute(query,[ContactID])
-    for message in messages:
-        print(message)
-    #DEV NOTE INSERT CODE HERE
+    return(messages)
 
 def RetriveRecentMessages():
-    query = """SELECT MessageID, contacts.ContactName, keys.PrivateKeyID
-                   FROM messages INER JOIN keys ON PublicKeyID = keys.PublicKeyID
-                   INER JOIN contacts ON MContactID = contacts.ContactID
-                   WHERE Mine != 1
-                   ORDER BY time DESC
-                   LIMIT 10"""
+    query = """SELECT MessageID, PrivateKeyID, Max, MContactID
+               FROM messages INER JOIN keys ON MPublicKeyID = PublicKeyID
+               WHERE Mine != 1
+               ORDER BY time DESC
+               LIMIT 10"""
     with sqlite3.connect("file:data.db?mode=ro", uri=True) as database:
         messages = database.execute(query)
-    return(messages)
+    MessagesList = []
+    for message in messages:
+        MessagesList.append([message[0],message[1],message[2],GetContactName(message[3]),message[3]])
+    return(MessagesList)
+
 
 with sqlite3.connect("data.db") as data: 
     try: #check tables exist

@@ -15,4 +15,5 @@ def RegisterPublicKey(PublicKey):
     return(PublicKeyID,salt)
 
 def SendImage(image,MessageID):
-    image.save("ToServer/"+MessageID)
+    image.save("ToServer/"+str(MessageID)+".png")
+    print("Done")

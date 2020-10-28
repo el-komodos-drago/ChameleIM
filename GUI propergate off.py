@@ -82,10 +82,10 @@ def RenderContactBar(MaxWidth):
         if len(ContactName) > MaxWidth:
             ContactName = ContactName[0:int(MaxWidth-3)]+"..." # Cut length of contact name
         ContactButtons[ID] = tkinter.Button(master=ContactBar,text=ContactName,
-                                            font=CourierNew, width=MaxWidth,
+                                            width=MaxWidth, #font=CourierNew, 
                                             bg="Light Grey", relief = tkinter.FLAT,
                                             command=lambda a=ID: DisplayContact(a))
-        ContactButtons[ID].pack(padx=10, side=tkinter.TOP,anchor="w")
+        ContactButtons[ID].pack(padx=5, side=tkinter.TOP,anchor="w")
     
     #Add contact button:
     AcceptInviteButton = tkinter.Button(master=ContactBar,text="➕ Accept Invite",
