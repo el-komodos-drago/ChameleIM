@@ -132,7 +132,7 @@ def RenderContactBar(MaxWidth):
                                      activestyle="none", yscrollcommand=CScrollBar.set)
     CScrollBar.config(command=ContactButtons.yview)
     CScrollBar.pack(side=tkinter.RIGHT,fill=tkinter.Y)
-    ContactButtons.pack(padx=10, anchor="w")
+    ContactButtons.pack(padx=10, anchor="w", fill=tkinter.Y)
     
     global ContactIDs
     ContactIDs = []
