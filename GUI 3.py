@@ -78,7 +78,9 @@ def ContactFromRecent(details):
     global RMContactIDs
     ContactID = RMContactIDs[item]
     DisplayContact(ContactID)
-    
+
+def DisplayImage(MessageID):
+    print(MessageID)
 
 def DisplayContact(ContactID):
     ContactName = GetContactName(ContactID)
@@ -109,7 +111,9 @@ def DisplayContact(ContactID):
                                          font="Arial 10 bold")
         MessageFromLabel.pack(anchor="w")
         MessageImage = tkinter.PhotoImage(file="messages/"+str(message[1])+".png")
-        
+        MessageImageButton = tkinter.Button(MessageFrame, image=MessageImage,
+                                            command = lambda message[1] = a: DisplayImage(a))
+        MessageImageButton.pack(anchor="w")        
         MessageText = GetMessageText(message[1], message[3],message[2])
         MessageTextLabel = tkinter.Label(master=MessageFrame,text=MessageText,
                                          bg="Dark Grey", relief = tkinter.FLAT)
