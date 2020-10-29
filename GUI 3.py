@@ -112,7 +112,9 @@ def DisplayContact(ContactID):
                                          bg="Dark Grey", relief = tkinter.FLAT,
                                          font="Arial 10 bold")
         MessageFromLabel.pack(anchor="w")
-        MessageImage = ImageTk.PhotoImage(Image.open("messages/"+str(message[1])+".png"))
+        ImageAddress = "messages/"+str(message[1])+".png"
+        MessageImage = tkinter.Image(file = ImageAddress)
+        #MessageImage = ImageTk.PhotoImage(Image.open(ImageAddress))
         MessageImageButton = tkinter.Button(MessageFrame, image=MessageImage,
                                             command = lambda a=message[1]: DisplayImage(a),
                                             relief = tkinter.FLAT)
