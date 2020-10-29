@@ -4,6 +4,8 @@ from tkinter.filedialog import asksaveasfilename as selectsavefile
 from tkinter.simpledialog import askstring
 from tkinter.font import Font
 
+from PIL import Image, ImageTk
+
 import time
 
 from Contacts import RetriveContacts, GetContactName, RetriveRecentMessages, RetriveMessages
@@ -110,7 +112,7 @@ def DisplayContact(ContactID):
                                          bg="Dark Grey", relief = tkinter.FLAT,
                                          font="Arial 10 bold")
         MessageFromLabel.pack(anchor="w")
-        MessageImage = tkinter.PhotoImage(file="messages/"+str(message[1])+".png")
+        MessageImage = ImageTk.PhotoImage(Image.open("messages/"+str(message[1])+".png"))
         MessageImageButton = tkinter.Button(MessageFrame, image=MessageImage,
                                             command = lambda a=message[1]: DisplayImage(a))
         MessageImageButton.pack(anchor="w")        
