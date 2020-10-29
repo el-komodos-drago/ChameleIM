@@ -115,6 +115,7 @@ def DisplayContact(ContactID):
         MessageImage = ImageTk.PhotoImage(Image.open("messages/"+str(message[1])+".png"))
         MessageImageButton = tkinter.Button(MessageFrame, image=MessageImage,
                                             command = lambda a=message[1]: DisplayImage(a))
+        MessageImageButton.image = MessageImage
         MessageImageButton.pack(anchor="w")        
         MessageText = GetMessageText(message[1], message[3],message[2])
         MessageTextLabel = tkinter.Label(master=MessageFrame,text=MessageText,
