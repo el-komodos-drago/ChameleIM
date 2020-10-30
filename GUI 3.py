@@ -58,6 +58,8 @@ def OpenInvite():
         NoticeText.set("Generating Keypair, Attempt: "+attempt)
         MainWindow.update_idletasks()
 
+def SendMessageGUI():
+
 def ContactSettings():
     print()
 
@@ -262,7 +264,7 @@ def CreateMessageList():
     SendMessageField = tkinter.Entry(SendMessageFrame, bg="white")
     SendMessageField.pack(fill="x",anchor="w",side="left",padx = 5)
     SendMessageButton = tkinter.Button(SendMessageFrame, bg = "white", relief="flat",
-                                        text="✈")
+                                        text="✈",command=SendMessageGUI(0))
     SendMessageButton.pack(anchor="e",side="right")
 
 def Resize(details):
