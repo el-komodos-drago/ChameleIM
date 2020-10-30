@@ -72,8 +72,9 @@ def ContactFromList(details):
     item = ContactButtons.curselection()[0]
     
     global ContactIDs
+    global ContactID
     ContactID = ContactIDs[item]
-    DisplayContact(ContactID)
+    DisplayContact()
 
 def ContactFromRecent(details):
     global RecentMessageList
@@ -84,13 +85,15 @@ def ContactFromRecent(details):
     item = item // 3
     
     global RMContactIDs
+    global ContactID
     ContactID = RMContactIDs[item]
-    DisplayContact(ContactID)
+    DisplayContact()
 
 def DisplayImage(MessageID):
     print(MessageID)
 
-def DisplayContact(ContactID):
+def DisplayContact():
+    global ContactID
     ContactName = GetContactName(ContactID)
     
     global ContactDisplayed
@@ -252,7 +255,7 @@ def CreateMessageList():
     
     MessageListScrollBox.grid(row=0, column=0, padx = 15, pady = 10,
                               sticky="nesw")
-    MLScrollBar.grid(row=0, column=1, rowspan=2, sticky="ns")
+    MLScrollBar.grid(row=0, column=1, sticky="ns")
     MainWindow.columnconfigure(0, weight=1)
     #MessageListScrollBox.pack(padx = 15, pady = 10, side="top", fill="both", expand=True)
     #MLScrollBar.pack(side="right", fill="y")
@@ -260,7 +263,7 @@ def CreateMessageList():
     #Send Message Box
     SendMessageFrame = tkinter.Frame(MessageList, bg = "white", highlightbackground = "black",
                                      highlightthickness = 1)
-    SendMessageFrame.grid(row=1,column=0,sticky="nsew", padx = 10, pady = 10)
+    SendMessageFrame.grid(row=1,column=0, columnspan=2,sticky="nsew", padx = 10, pady = 10)
     #SendMessageFrame.pack(side="top",anchor="w", fill = "x", padx = 10, pady = 10)
     SendMessageField = tkinter.Entry(SendMessageFrame, bg="white")
     SendMessageField.pack(fill="x",anchor="w",side="left",padx = 5)
