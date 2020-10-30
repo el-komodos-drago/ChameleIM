@@ -249,27 +249,11 @@ def CreateMessageList():
 
     MessageListScrollBox.pack(padx = 15, pady = 10, side="left", fill="both", expand=True)
     MLScrollBar.pack(side="right", fill="y")
-
     
-    
-    
-#     MLScrollBar = tkinter.Scrollbar(MessageList, orient=tkinter.VERTICAL)
-#     global MessageListScrollBox
-#     MessageListScrollBox = tkinter.Canvas(MessageList, bg="Light Grey", relief = tkinter.FLAT,
-#                                           highlightthickness=0, yscrollcommand=MLScrollBar.set)
-#     MLScrollBar.config(command=MessageListScrollBox.yview)
-#     MLScrollBar.pack(side=tkinter.RIGHT,fill=tkinter.Y)
-#     MessageListScrollBox.pack(fill=tkinter.BOTH,padx = 15, pady = 10, expand=True)
-#         
-#     global MessageListInner
-#     MessageListInner = tkinter.Frame(master=MessageListScrollBox, bg="Light Grey")
-#     MessageListInner.pack()
-#     MessageListInner.bind("<Configure>",lambda e: MessageListScrollBox.configure(
-#                           scrollregion=MessageListScrollBox.bbox("all")))
-#     MessageListScrollBox.create_window((0,0), window=MessageListInner, anchor="nw")
-
-    
-    #Dev Note: Send Message Box Here
+    #Send Message Box
+    SendMessageFrame = tkinter.Frame(MessageList, bg = "white", highlightbackground = "black",
+                                     highlightthickness = 1)
+    SendMessageButton = tkinter.Button(SendMessageFrame, bg = "white", text="✈")
 
 def Resize(details):
     MaxCharacters = (details.width/50)-2
