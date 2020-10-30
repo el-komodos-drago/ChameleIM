@@ -230,8 +230,8 @@ def RenderRecentMessages():
     RecentMessageList.bind("<<ListboxSelect>>",ContactFromRecent)
 
 def CreateMessageList():
-    MessageListScrollBox = tkinter.Canvas(MessageList)
-    MLScrollBar = tkinter.Scrollbar(MessageList, orient="vertical", bg="Light Grey",
+    MessageListScrollBox = tkinter.Canvas(MessageList, bg="Light Grey")
+    MLScrollBar = tkinter.Scrollbar(MessageList, orient="vertical",
                                     command=MessageListScrollBox.yview)
     global MessageListInner
     MessageListInner = tkinter.Frame(MessageListScrollBox, bg="Light Grey")
