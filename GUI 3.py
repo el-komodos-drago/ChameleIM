@@ -97,7 +97,7 @@ def DisplayContact(ContactID):
     ContactDisplayed.pack(padx=0, side=tkinter.LEFT,anchor="w")
     
     #blank existing message list
-    global MessageListScrollBox
+    #global MessageListScrollBox
     global MessageListInner
     for child in MessageListInner.winfo_children():
         child.destroy()
