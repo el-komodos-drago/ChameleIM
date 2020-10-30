@@ -253,7 +253,9 @@ def CreateMessageList():
     #Send Message Box
     SendMessageFrame = tkinter.Frame(MessageList, bg = "white", highlightbackground = "black",
                                      highlightthickness = 1)
+    SendMessageFrame.pack(anchor="s")
     SendMessageButton = tkinter.Button(SendMessageFrame, bg = "white", text="✈")
+    SendMessageButton.pack(anchor="e")
 
 def Resize(details):
     MaxCharacters = (details.width/50)-2
