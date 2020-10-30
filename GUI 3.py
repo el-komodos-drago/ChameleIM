@@ -247,13 +247,13 @@ def CreateMessageList():
 
     MessageListScrollBox.configure(yscrollcommand=MLScrollBar.set)
 
-    MessageListScrollBox.pack(padx = 15, pady = 10, side="top", fill="both", expand=True)
+    MessageListScrollBox.pack(padx = 15, pady = 10, side="left", fill="both", expand=True)
     MLScrollBar.pack(side="right", fill="y")
     
     #Send Message Box
     SendMessageFrame = tkinter.Frame(MessageList, bg = "white", highlightbackground = "black",
                                      highlightthickness = 1)
-    SendMessageFrame.pack(side="bottom",anchor="s",padx = 10, pady = 10)
+    SendMessageFrame.pack(side="bottom",anchor="s")
     SendMessageButton = tkinter.Button(SendMessageFrame, bg = "white", relief="flat",
                                         text="✈")
     SendMessageButton.pack(anchor="e")
