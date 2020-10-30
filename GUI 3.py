@@ -104,10 +104,10 @@ def DisplayContact(ContactID):
     
     
     MessageListInner.destroy()
-    #MessageListInner = tkinter.Frame(master=MessageListScrollBox, bg="Light Grey")
-    #MessageListInner.pack(fill=tkinter.X)
-    #MessageListInner.bind("<Configure>",lambda e: MessageListScrollBox.configure(
-    #                      scrollregion=MessageListScrollBox.bbox("all")))
+    MessageListInner = tkinter.Frame(master=MessageListScrollBox, bg="Light Grey")
+    MessageListInner.pack(fill=tkinter.X)
+    MessageListInner.bind("<Configure>",lambda e: MessageListScrollBox.configure(
+                          scrollregion=MessageListScrollBox.bbox("all")))
     
     messages = RetriveMessages(ContactID)
     for message in messages:
