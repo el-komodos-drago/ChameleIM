@@ -10,7 +10,7 @@ import time
 
 from Contacts import RetriveContacts, GetContactName, RetriveRecentMessages, RetriveMessages
 from Contacts import LatestMessageMine
-from MainLibrary import CreateInvite, AcceptInvite, GetMessageText
+from MainLibrary import CreateInvite, AcceptInvite, GetMessageText,SendMessage
 
 def SendInvite():
     ContactName = ""
