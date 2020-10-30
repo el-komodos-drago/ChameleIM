@@ -237,7 +237,7 @@ def CreateMessageList():
     MessageListInner = tkinter.Frame(MessageListScrollBox)
 
     MessageListInner.bind("<Configure>", lambda e: MessageListScrollBox.configure(
-                          scrollregion=MessageListScrollBox.bbox("all")) bg = "light grey")
+                          scrollregion=MessageListScrollBox.bbox("all")), bg = "light grey")
 
     MessageListScrollBox.create_window((0, 0), window=MessageListInner, anchor="nw")
 
