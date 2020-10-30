@@ -108,7 +108,11 @@ def DisplayContact(ContactID):
     #MessageListInner.pack(fill=tkinter.X)
     #MessageListInner.bind("<Configure>",lambda e: MessageListScrollBox.configure(
     #                      scrollregion=MessageListScrollBox.bbox("all")))
-    
+    text="----------------------------------------------------------------------------------"
+    for i in range(10):
+        text = text + "---------------------------------------------------------------------"
+        FillWidth = tkinter.Label(MessageListInner,text=text, fg = "Light Grey")
+    FillWidth.pack()
     messages = RetriveMessages(ContactID)
     for message in messages:
         MessageFrame = tkinter.Frame(MessageListInner, bg="Dark Grey",
