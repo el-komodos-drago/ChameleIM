@@ -76,8 +76,8 @@ def ContactFromRecent(details):
     global RecentMessageList
     try:
         item = RecentMessageList.curselection()[0]
-    except IndexError:
-        return()
+    except IndexError: #sometimes this function is called incorrectly and this error is thrown
+        return() # so the function is simply terminated
     item = item // 3
     
     global RMContactIDs
@@ -101,14 +101,14 @@ def DisplayContact(ContactID):
     for child in MessageListScrollBox.winfo_children():
         child.destroy()
     
-    global MessageListInner
-    MessageListInner.destroy()
-    MessageListInner = tkinter.Frame(master=MessageListScrollBox, bg="Light Grey")
-    MessageListInner.pack(fill=tkinter.X)
+    #global MessageListInner
+    #MessageListInner.destroy()
+    #MessageListInner = tkinter.Frame(master=MessageListScrollBox, bg="Light Grey")
+    #MessageListInner.pack(fill=tkinter.X)
     
     messages = RetriveMessages(ContactID)
     for message in messages:
-        MessageFrame = tkinter.Frame(MessageListInner, bg="Dark Grey",
+        MessageFrame = tkinter.Frame(MessageListScrollBox, bg="Dark Grey",
                                      highlightbackground="black", highlightthickness=1)
         if message[0] == 1:
             MessageFrom = "Me"
