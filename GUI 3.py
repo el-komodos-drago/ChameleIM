@@ -98,15 +98,16 @@ def DisplayContact(ContactID):
     
     #blank existing message list
     global MessageListScrollBox
-    #for child in MessageListScrollBox.winfo_children():
-    #    child.destroy()
-    
     global MessageListInner
-    MessageListInner.destroy()
-    MessageListInner = tkinter.Frame(master=MessageListScrollBox, bg="Light Grey")
-    MessageListInner.pack(fill=tkinter.X)
-    MessageListInner.bind("<Configure>",lambda e: MessageListScrollBox.configure(
-                          scrollregion=MessageListScrollBox.bbox("all")))
+    for child in MessageListInner.winfo_children():
+        child.destroy()
+    
+    
+    #MessageListInner.destroy()
+    #MessageListInner = tkinter.Frame(master=MessageListScrollBox, bg="Light Grey")
+    #MessageListInner.pack(fill=tkinter.X)
+    #MessageListInner.bind("<Configure>",lambda e: MessageListScrollBox.configure(
+    #                      scrollregion=MessageListScrollBox.bbox("all")))
     
     messages = RetriveMessages(ContactID)
     for message in messages:
