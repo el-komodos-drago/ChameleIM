@@ -4,7 +4,7 @@ from tkinter.filedialog import asksaveasfilename as selectsavefile
 from tkinter.simpledialog import askstring
 from tkinter.font import Font
 
-from PIL import Image, ImageTk
+#from PIL import Image, ImageTk
 
 import time
 
