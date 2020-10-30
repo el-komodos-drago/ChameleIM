@@ -83,6 +83,7 @@ def GetMessageText(MessageID, PrivateKeyID,Max):
     print(MessageText)
     Hash = MessageText[2:154]
     Message = json.loads(MessageText[156:])
+    Message = "jakshfhijiewnjni nunuiaijw jfjnawif uuhahiimnk jnjij iiua w jhijauhujnsfmiaiu uaijwjfnamii aijifhuwnj iuhabkn kmjuhuankmfi hwjkaiy oauybfjuwbmnau nmauiybe hahjnnjf"
     return(Message[0])
 
 #input()
