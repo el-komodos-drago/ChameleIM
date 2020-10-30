@@ -59,7 +59,13 @@ def OpenInvite():
         MainWindow.update_idletasks()
 
 def SendMessageGUI():
+    global SendMessageField
+    text = SendMessageField.get()
     global ContactID
+    GenerateNewKeypair = LatestMessageMine(ContactID)
+    
+    
+    SendMessage(FileName,message,IDpassword,PublicKey,Max,ContactID, PublicKeyID)
 
 def ContactSettings():
     print()
@@ -265,6 +271,7 @@ def CreateMessageList():
                                      highlightthickness = 1)
     SendMessageFrame.grid(row=1,column=0, columnspan=2,sticky="nsew", padx = 10, pady = 10)
     #SendMessageFrame.pack(side="top",anchor="w", fill = "x", padx = 10, pady = 10)
+    global SendMessageField
     SendMessageField = tkinter.Entry(SendMessageFrame, bg="white")
     SendMessageField.pack(fill="x",anchor="w",side="left",padx = 5)
     SendMessageButton = tkinter.Button(SendMessageFrame, bg = "white", relief="flat",
