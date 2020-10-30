@@ -265,7 +265,7 @@ def CreateMessageList():
     SendMessageField = tkinter.Entry(SendMessageFrame, bg="white")
     SendMessageField.pack(fill="x",anchor="w",side="left",padx = 5)
     SendMessageButton = tkinter.Button(SendMessageFrame, bg = "white", relief="flat",
-                                        text="✈",command=SendMessageGUI)
+                                        text="✈",command=SendMessageGUI())
     SendMessageButton.pack(anchor="e",side="right")
 
 def Resize(details):
