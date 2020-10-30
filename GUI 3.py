@@ -103,7 +103,7 @@ def DisplayContact(ContactID):
         child.destroy()
     
     
-    #MessageListInner.destroy()
+    MessageListInner.destroy()
     #MessageListInner = tkinter.Frame(master=MessageListScrollBox, bg="Light Grey")
     #MessageListInner.pack(fill=tkinter.X)
     #MessageListInner.bind("<Configure>",lambda e: MessageListScrollBox.configure(
