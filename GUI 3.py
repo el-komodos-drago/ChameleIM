@@ -234,10 +234,10 @@ def CreateMessageList():
     MLScrollBar = tkinter.Scrollbar(MessageList, orient="vertical", bg="Light Grey",
                                     command=MessageListScrollBox.yview)
     global MessageListInner
-    MessageListInner = tkinter.Frame(MessageListScrollBox)
+    MessageListInner = tkinter.Frame(MessageListScrollBox, bg="Light Grey")
 
     MessageListInner.bind("<Configure>", lambda e: MessageListScrollBox.configure(
-                          scrollregion=MessageListScrollBox.bbox("all")), bg = "light grey")
+                          scrollregion=MessageListScrollBox.bbox("all")))
 
     MessageListScrollBox.create_window((0, 0), window=MessageListInner, anchor="nw")
 
