@@ -74,7 +74,10 @@ def ContactFromList(details):
 
 def ContactFromRecent(details):
     global RecentMessageList
-    item = RecentMessageList.curselection()[0]
+    try:
+        item = RecentMessageList.curselection()[0]
+    except IndexError:
+        return()
     item = item // 3
     
     global RMContactIDs
