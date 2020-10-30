@@ -249,7 +249,7 @@ def CreateMessageList():
     
     MessageListScrollBox.grid(row=0, column=0, padx = 15, pady = 10,
                               sticky="nesw")
-    MLScrollBar.grid(row=0, column=0, rowspan=2, sticky="ns")
+    MLScrollBar.grid(row=0, column=1, rowspan=2, sticky="ns")
     MainWindow.columnconfigure(0, weight=1)
     #MessageListScrollBox.pack(padx = 15, pady = 10, side="top", fill="both", expand=True)
     #MLScrollBar.pack(side="right", fill="y")
