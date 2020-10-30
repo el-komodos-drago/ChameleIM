@@ -111,7 +111,7 @@ def DisplayContact(ContactID):
     text="----------------------------------------------------------------------------------"
     for i in range(10):
         text = text + "---------------------------------------------------------------------"
-        FillWidth = tkinter.Label(MessageListInner,text=text, fg="Light Grey" bg="Light Grey")
+        FillWidth = tkinter.Label(MessageListInner,text=text, fg="Light Grey", bg="Light Grey")
     FillWidth.pack()
     messages = RetriveMessages(ContactID)
     for message in messages:
