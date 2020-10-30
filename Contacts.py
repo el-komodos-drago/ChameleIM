@@ -47,8 +47,8 @@ def LatestMessageMine(ContactID):
         query = """SELECT Mine FROM messages WHERE MContactID = (?)
                    ORDER BY Time DESC LIMIT 1"""
         for row in database.execute(query, [str(ContactID)]):
-            ContactName = row[0]
-    return(ContactName)
+            Mine = row[0]
+    return(Mine)
 
 def IndexMessage(ContactID, PublicKeyID, mine):
     TimeSent = int(time.time())
