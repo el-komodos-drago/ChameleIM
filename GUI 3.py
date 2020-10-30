@@ -128,7 +128,7 @@ def DisplayContact(ContactID):
         ImageAddress = "messages/"+str(message[1])+".png"
         MessageImage = tkinter.PhotoImage(file = ImageAddress)
         width = MessageImage.width()
-        subsample = int(width / 100)
+        subsample = int(width / 200)
         MessageImage = MessageImage.subsample(subsample)
         #MessageImage = ImageTk.PhotoImage(Image.open(ImageAddress))
         MessageImageButton = tkinter.Button(MessageFrame, image=MessageImage,
