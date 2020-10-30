@@ -95,6 +95,9 @@ def DisplayContact(ContactID):
     
     #blank existing message list
     global MessageListScrollBox
+    for child in MessageListScrollBox.winfo_children():
+        child.destroy()
+    
     global MessageListInner
     MessageListInner.destroy()
     MessageListInner = tkinter.Frame(master=MessageListScrollBox, bg="Light Grey")
