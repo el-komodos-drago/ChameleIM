@@ -9,6 +9,7 @@ from tkinter.font import Font
 import time
 
 from Contacts import RetriveContacts, GetContactName, RetriveRecentMessages, RetriveMessages
+from Contacts import LatestMessageMine
 from MainLibrary import CreateInvite, AcceptInvite, GetMessageText
 
 def SendInvite():
