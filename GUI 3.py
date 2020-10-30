@@ -242,6 +242,7 @@ def CreateMessageList():
     MessageListInner.pack()
     MessageListInner.bind("<Configure>",lambda e: MessageListScrollBox.configure(
                           scrollregion=MessageListScrollBox.bbox("all")))
+    MessageListScrollBox.create_window((0,0), window=MessageListInner, anchor="nw")
 
     
     #Dev Note: Send Message Box Here
