@@ -63,6 +63,8 @@ def SendMessageGUI():
     global SendMessageField
     text = SendMessageField.get()
     global ContactID
+    if ContactID == 1:
+        return()
     GenerateNewKeypair = LatestMessageMine(ContactID)
     
     
