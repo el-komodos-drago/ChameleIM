@@ -283,7 +283,7 @@ def Resize(details):
     MaxCharacters = (details.width/50)-2
     RenderContactBar(MaxCharacters)
 
-ContactID=0
+ContactID=1
 ContactDisplayedName = ""
 MainWindow = tkinter.Tk()
 MainWindow.minsize(600,100)
