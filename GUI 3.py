@@ -59,6 +59,7 @@ def OpenInvite():
         MainWindow.update_idletasks()
 
 def SendMessageGUI():
+    print()
 
 def ContactSettings():
     print()
