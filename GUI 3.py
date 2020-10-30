@@ -247,7 +247,7 @@ def CreateMessageList():
 
     MessageListScrollBox.configure(yscrollcommand=MLScrollBar.set)
 
-    MessageListScrollBox.pack(padx = 15, pady = 10, side="left", fill="both", expand=True)
+    MessageListScrollBox.pack(padx = 15, pady = 10, side="top", fill="both", expand=True)
     MLScrollBar.pack(side="right", fill="y")
     
     #Send Message Box
