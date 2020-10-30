@@ -242,7 +242,7 @@ def CreateMessageList():
     MessageListScrollBox.configure(yscrollcommand=MLScrollBar.set)
 
     for i in range(50):
-        tkinter.Label(MessageListInner, text="Sample scrolling label").pack()
+        tkinter.Label(MessageListInner, text="Sample scrolling label "+i).pack()
 
     MessageListScrollBox.pack(side="left", fill="both", expand=True)
     MLScrollBar.pack(side="right", fill="y")
