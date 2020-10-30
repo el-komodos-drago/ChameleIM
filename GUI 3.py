@@ -116,7 +116,7 @@ def DisplayContact(ContactID):
     messages = RetriveMessages(ContactID)
     for message in messages:
         MessageFrame = tkinter.Frame(MessageListInner, bg="Dark Grey",
-                                     highlightbackground="black", highlightthickness=1)
+                                     highlightbackground="black", highlightthickness=0)
         if message[0] == 1:
             MessageFrom = "Me"
         else:
