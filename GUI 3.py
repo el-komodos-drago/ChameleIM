@@ -253,7 +253,7 @@ def CreateMessageList():
     #Send Message Box
     SendMessageFrame = tkinter.Frame(MessageList, bg = "white", highlightbackground = "black",
                                      highlightthickness = 1)
-    SendMessageFrame.pack(side="bottom",anchor="e", fill = "x", padx = 10, pady = 10)
+    SendMessageFrame.pack(side="left",anchor="w", fill = "x", padx = 10, pady = 10)
     SendMessageField = tkinter.Entry(SendMessageFrame, bg="white")
     SendMessageField.pack(fill="x",anchor="w",side="left")
     SendMessageButton = tkinter.Button(SendMessageFrame, bg = "white", relief="flat",
