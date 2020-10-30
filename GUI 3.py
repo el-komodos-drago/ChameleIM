@@ -231,12 +231,13 @@ def RenderRecentMessages():
 
 def CreateMessageList():
     MessageListScrollBox = tkinter.Canvas(MessageList)
-    MLScrollBar = tkinter.Scrollbar(MessageList, orient="vertical", command=MessageListScrollBox.yview)
+    MLScrollBar = tkinter.Scrollbar(MessageList, orient="vertical", bg="Light Grey",
+                                    command=MessageListScrollBox.yview)
     global MessageListInner
     MessageListInner = tkinter.Frame(MessageListScrollBox)
 
-    MessageListInner.bind( "<Configure>", lambda e: MessageListScrollBox.configure(
-            scrollregion=MessageListScrollBox.bbox("all")))
+    MessageListInner.bind("<Configure>", lambda e: MessageListScrollBox.configure(
+                          scrollregion=MessageListScrollBox.bbox("all")) bg = "light grey")
 
     MessageListScrollBox.create_window((0, 0), window=MessageListInner, anchor="nw")
 
@@ -245,7 +246,7 @@ def CreateMessageList():
     for i in range(50):
         tkinter.Label(MessageListInner, text="Sample scrolling label "+str(i)).pack()
 
-    MessageListScrollBox.pack(side="left", fill="both", expand=True)
+    MessageListScrollBox.pack(padx = 15, pady = 10, side="left", fill="both", expand=True)
     MLScrollBar.pack(side="right", fill="y")
 
     
