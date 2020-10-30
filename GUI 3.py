@@ -103,11 +103,11 @@ def DisplayContact(ContactID):
         child.destroy()
     
     
-    MessageListInner.destroy()
-    MessageListInner = tkinter.Frame(master=MessageListScrollBox, bg="Light Grey")
-    MessageListInner.pack(fill=tkinter.X)
-    MessageListInner.bind("<Configure>",lambda e: MessageListScrollBox.configure(
-                          scrollregion=MessageListScrollBox.bbox("all")))
+    #MessageListInner.destroy()
+    #MessageListInner = tkinter.Frame(master=MessageListScrollBox, bg="Light Grey")
+    #MessageListInner.pack(fill=tkinter.X)
+    #MessageListInner.bind("<Configure>",lambda e: MessageListScrollBox.configure(
+    #                      scrollregion=MessageListScrollBox.bbox("all")))
     
     messages = RetriveMessages(ContactID)
     for message in messages:
@@ -230,20 +230,40 @@ def RenderRecentMessages():
     RecentMessageList.bind("<<ListboxSelect>>",ContactFromRecent)
 
 def CreateMessageList():
-    MLScrollBar = tkinter.Scrollbar(MessageList, orient=tkinter.VERTICAL)
-    global MessageListScrollBox
-    MessageListScrollBox = tkinter.Canvas(MessageList, bg="Light Grey", relief = tkinter.FLAT,
-                                          highlightthickness=0, yscrollcommand=MLScrollBar.set)
-    MLScrollBar.config(command=MessageListScrollBox.yview)
-    MLScrollBar.pack(side=tkinter.RIGHT,fill=tkinter.Y)
-    MessageListScrollBox.pack(fill=tkinter.BOTH,padx = 15, pady = 10, expand=True)
-        
-    global MessageListInner
-    MessageListInner = tkinter.Frame(master=MessageListScrollBox, bg="Light Grey")
-    MessageListInner.pack()
-    MessageListInner.bind("<Configure>",lambda e: MessageListScrollBox.configure(
-                          scrollregion=MessageListScrollBox.bbox("all")))
-    MessageListScrollBox.create_window((0,0), window=MessageListInner, anchor="nw")
+    MessageListScrollBox = tkinter.Canvas(MessageList)
+    MLScrollBar = tkinter.Scrollbar(container, orient="vertical", command=canvas.yview)
+    MessageListInner = tkinter.Frame(MessageListScrollBox)
+
+    MessageListInner.bind( "<Configure>", lambda e: MessageListScrollBox.configure(
+            scrollregion=MessageListScrollBox.bbox("all")))
+
+    MessageListScrollBox.create_window((0, 0), window=MessageListInner, anchor="nw")
+
+    MessageListScrollBox.configure(yscrollcommand=MLScrollBar.set)
+
+    for i in range(50):
+        tkinter.Label(MessageListInner, text="Sample scrolling label").pack()
+
+    MessageListScrollBox.pack(side="left", fill="both", expand=True)
+    MLScrollBar.pack(side="right", fill="y")
+
+    
+    
+    
+#     MLScrollBar = tkinter.Scrollbar(MessageList, orient=tkinter.VERTICAL)
+#     global MessageListScrollBox
+#     MessageListScrollBox = tkinter.Canvas(MessageList, bg="Light Grey", relief = tkinter.FLAT,
+#                                           highlightthickness=0, yscrollcommand=MLScrollBar.set)
+#     MLScrollBar.config(command=MessageListScrollBox.yview)
+#     MLScrollBar.pack(side=tkinter.RIGHT,fill=tkinter.Y)
+#     MessageListScrollBox.pack(fill=tkinter.BOTH,padx = 15, pady = 10, expand=True)
+#         
+#     global MessageListInner
+#     MessageListInner = tkinter.Frame(master=MessageListScrollBox, bg="Light Grey")
+#     MessageListInner.pack()
+#     MessageListInner.bind("<Configure>",lambda e: MessageListScrollBox.configure(
+#                           scrollregion=MessageListScrollBox.bbox("all")))
+#     MessageListScrollBox.create_window((0,0), window=MessageListInner, anchor="nw")
 
     
     #Dev Note: Send Message Box Here
