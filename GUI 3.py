@@ -232,6 +232,7 @@ def RenderRecentMessages():
 def CreateMessageList():
     MessageListScrollBox = tkinter.Canvas(MessageList)
     MLScrollBar = tkinter.Scrollbar(MessageList, orient="vertical", command=MessageListScrollBox.yview)
+    global MessageListInner
     MessageListInner = tkinter.Frame(MessageListScrollBox)
 
     MessageListInner.bind( "<Configure>", lambda e: MessageListScrollBox.configure(
