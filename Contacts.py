@@ -42,6 +42,14 @@ def GetContactName(ContactID):
             ContactName = row[0]
     return(ContactName)
 
+def LatestMessageMine(ContactID):
+    with sqlite3.connect("file:data.db?mode=ro", uri=True) as database:
+        query = """SELECT Mine FROM messages WHERE MContactID = (?)
+                   ORDER BY Time DESC LIMIT 1"""
+        for row in database.execute(query, [str(ContactID)]):
+            ContactName = row[0]
+    return(ContactName)
+
 def IndexMessage(ContactID, PublicKeyID, mine):
     TimeSent = int(time.time())
     querry = """INSERT INTO messages(MessageID, MContactID, MPublicKeyID, Time, Mine)
