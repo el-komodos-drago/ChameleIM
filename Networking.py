@@ -1,7 +1,7 @@
 from Cryptography import Hash
 import sqlite3
 
-def RegisterPublicKey(PublicKey):
+def RegisterPublicKey():
     with open("WiFall Key") as WiFallKey:
         WFK = WiFallKey.read() #Save the contents of the WiFall Key file to WFK
     KHash,salt = Hash(WFK) #get the hash and salt by Hashing it
@@ -14,6 +14,6 @@ def RegisterPublicKey(PublicKey):
     print()
     return(PublicKeyID,salt)
 
-def SendImage(image,MessageID):
+def SendImage(image,MessageID,PublicKeyID):
     image.save("ToServer/"+str(MessageID)+".png")
     print("Done")

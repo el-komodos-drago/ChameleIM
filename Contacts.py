@@ -1,13 +1,14 @@
 import sqlite3
 import time
 
-def AddContact(PublicKey,Max,IDpassword,ContactName):
+def AddContact(PublicKeyID,PublicKey,Max,IDpassword,ContactName):
     with sqlite3.connect("data.db") as database:
         for row in database.execute("SELECT MAX(ContactID) FROM contacts"):
             ContactID = row[0]+1
-        query = """INSERT INTO contacts(ContactID, PublicKey, Max, IDpassword, ContactName)
-                   VALUES (?,?,?,?,?)"""
-        database.execute(query, [ContactID,str(PublicKey),str(Max),IDpassword,ContactName])
+        query = """INSERT INTO contacts(ContactID, PublicKeyID, PublicKey, Max, IDpassword,
+                   ContactName) VALUES (?,?,?,?,?,?)"""
+        data = [ContactID,PublicKeyID,str(PublicKey),str(Max),IDpassword,ContactName]
+        database.execute(query, data)
     return(ContactID)
 
 def SavePrivateKey(PrivateKey):    
@@ -24,6 +25,14 @@ def SaveKeypair(PublicKeyID, ContactID, PublicKey, Max, PrivateKeyID,salt):
         query = """INSERT INTO keys(PublicKeyID, KContactID, Current, PublicKey, Max,
                    PrivateKeyID, salt) VALUES (?,?,?,?,?,?,?)"""
         database.execute(query, data)
+    return()
+        
+def CurrentKeyDetails(ContactID):
+    with sqlite3.connect("file:data.db?mode=ro", uri=True) as database:
+        query = """SELECT PublicKeyID, PublicKey, Max FROM keys WHERE KContactID = (?)"""
+        for row in database.execute(query, [str(ContactID)]):
+            PublicKeyID,PublicKey,Max = row
+    return(PublicKeyID,PublicKey,Max)
 
 def RetriveContacts():
     with sqlite3.connect("file:data.db?mode=ro", uri=True) as database:
@@ -41,6 +50,14 @@ def GetContactName(ContactID):
         for row in database.execute(query, [str(ContactID)]):
             ContactName = row[0]
     return(ContactName)
+
+def GetContactKey(ContactID):
+    with sqlite3.connect("file:data.db?mode=ro", uri=True) as database:
+        query = """SELECT PublicKeyID, PublicKey, Max, IDpassword
+                   FROM contacts WHERE ContactID = (?)"""
+        for row in database.execute(query, [str(ContactID)]):
+            PublicKeyID,PublicKey,Max,IDpassword = row
+    return(PublicKeyID,PublicKey,Max,IDpassword)
 
 def LatestMessageMine(ContactID):
     with sqlite3.connect("file:data.db?mode=ro", uri=True) as database:
@@ -91,13 +108,14 @@ with sqlite3.connect("data.db") as data:
             print(row)
     except sqlite3.OperationalError: #if it doesn't, create it
         data.execute("""CREATE TABLE contacts (
-                        ContactID   integer primary key,
-                        PublicKey   text,       --must be text, number to big to be integer
-                        Max         text,       --must be text, number to big to be integer
-                        IDpassword  text,
-                        ContactName text)""")
-        query = "INSERT INTO contacts VALUES (?,?,?,?,?)"
-        data.execute(query, [1,1,1,"",""])
+                        ContactID     integer primary key,
+                        PublicKeyID   integer,
+                        PublicKey     text,       --must be text, number to big to be integer
+                        Max           text,       --must be text, number to big to be integer
+                        IDpassword    text,
+                        ContactName   text)""")
+        query = "INSERT INTO contacts VALUES (?,?,?,?,?,?)"
+        data.execute(query, [1,1,1,1,"",""])
         
         data.execute("""CREATE TABLE keys (
                         PublicKeyID  integer primary key,

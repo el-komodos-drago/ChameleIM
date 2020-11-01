@@ -10,7 +10,6 @@ from hashlib import scrypt
 from secrets import SystemRandom
 
 def Num2Text (numbers):
-    print(numbers)
     text = ""
     for number in numbers:
         character = chr(number)

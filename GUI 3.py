@@ -4,13 +4,15 @@ from tkinter.filedialog import asksaveasfilename as selectsavefile
 from tkinter.simpledialog import askstring
 from tkinter.font import Font
 
+import json
+
 #from PIL import Image, ImageTk
 
 import time
 
 from Contacts import RetriveContacts, GetContactName, RetriveRecentMessages, RetriveMessages
-from Contacts import LatestMessageMine
-from MainLibrary import CreateInvite, AcceptInvite, GetMessageText,SendMessage
+from Contacts import LatestMessageMine, GetContactKey
+from MainLibrary import CreateInvite, AcceptInvite, GetMessageText,SendMessage,CreateKeypair
 
 def SendInvite():
     ContactName = ""
@@ -58,17 +60,46 @@ def OpenInvite():
     for attempt in AcceptInvite(ContactName,InputFile): #CreateInvite uses yeild
         NoticeText.set("Generating Keypair, Attempt: "+attempt)
         MainWindow.update_idletasks()
+    RenderContactBar()
 
 def SendMessageGUI():
     global SendMessageField
     text = SendMessageField.get()
+    print(text)
     global ContactID
     if ContactID == 1:
         return()
-    GenerateNewKeypair = LatestMessageMine(ContactID)
     
+    InputFile = selectfile(title="Select image to hide invite in",
+                           filetypes=(("png files","*.png"),))
+    if InputFile == "":
+        return()
     
-    SendMessage(FileName,message,IDpassword,PublicKey,Max,ContactID, PublicKeyID)
+    GenerateNewKeypair = LatestMessageMine(ContactID) #0 is True, 1 is False.
+    if GenerateNewKeypair == 0:
+        NoticeText = tkinter.StringVar()
+        notice = tkinter.Label(master=MainWindow, textvariable=NoticeText)
+        notice.grid(row=3, column=0, columnspan=3,sticky="ew")
+        MainWindow.update_idletasks()
+        
+        for ReturnedData in CreateKeypair(ContactID): # Create Keypair to send
+            if type(ReturnedData) is str:
+                NoticeText.set(ReturnedData)
+                MainWindow.update_idletasks()
+            else:
+                MyPublicKeyID,MyPublicKey,MyMax = ReturnedData
+        
+        notice.destroy()
+        message = json.dumps([text,MyPublicKeyID,MyPublicKey,MyMax])
+    else:
+        message = json.dumps([text])
+        print(message)
+    
+    PublicKeyID, PublicKey, Max, IDpassword = GetContactKey(ContactID)
+    
+    SendMessageField.delete(0, tkinter.END)
+    
+    SendMessage(InputFile,message,IDpassword,PublicKey,Max,ContactID, PublicKeyID)
 
 def ContactSettings():
     print()
@@ -157,8 +188,9 @@ def DisplayContact():
         MessageTextLabel.pack(anchor="w")
         
         MessageFrame.pack(pady = 5,fill=tkinter.X)
+        MainWindow.update_idletasks()
 
-def RenderContactBar(MaxWidth):
+def RenderContactBar(MaxWidth = 15):
     CourierNew = Font(family="Courier New")
     MaxCharacters = 15
     
@@ -265,7 +297,8 @@ def CreateMessageList():
     MessageListScrollBox.grid(row=0, column=0, padx = 15, pady = 10,
                               sticky="nesw")
     MLScrollBar.grid(row=0, column=1, sticky="ns")
-    MainWindow.columnconfigure(0, weight=1)
+    MessageList.columnconfigure(0, weight=1)
+    MessageList.rowconfigure(0, weight=1)
     #MessageListScrollBox.pack(padx = 15, pady = 10, side="top", fill="both", expand=True)
     #MLScrollBar.pack(side="right", fill="y")
     
@@ -278,7 +311,7 @@ def CreateMessageList():
     SendMessageField = tkinter.Entry(SendMessageFrame, bg="white")
     SendMessageField.pack(fill="x",anchor="w",side="left",padx = 5)
     SendMessageButton = tkinter.Button(SendMessageFrame, bg = "white", relief="flat",
-                                        text="✈",command=SendMessageGUI())
+                                        text="✈",command=SendMessageGUI)
     SendMessageButton.pack(anchor="e",side="right")
 
 def Resize(details):
@@ -289,6 +322,7 @@ ContactID=1
 ContactDisplayedName = ""
 MainWindow = tkinter.Tk()
 MainWindow.minsize(600,100)
+MainWindow.title("Alice's ChameleIM")
 
 # Border colors as suggested by
 #https://code.activestate.com/recipes/580735-frame-with-border-color-for-tkinter/
