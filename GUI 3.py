@@ -68,15 +68,14 @@ def SendMessageGUI():
         return()
     PublicKeyID, PublicKey, Max, IDpassword = GetContactKey(ContactID)
     print(PublicKeyID, PublicKey, Max, IDpassword)
-    if Max == 1:
-        print()
+    if Max == "1":
+        print("ABC")
         tkinter.messagebox.showinfo(message="""Sorry but that contact hasn't opened
                                     your invite yet. As a result you can't send them messages""")
         return()
     
     global SendMessageField
     text = SendMessageField.get()
-    print(text)
     
     InputFile = selectfile(title="Select image to hide invite in",
                            filetypes=(("png files","*.png"),))
