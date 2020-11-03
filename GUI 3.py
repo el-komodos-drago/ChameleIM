@@ -69,6 +69,7 @@ def SendMessageGUI():
     PublicKeyID, PublicKey, Max, IDpassword = GetContactKey(ContactID)
     print(PublicKeyID, PublicKey, Max, IDpassword)
     if Max == 1:
+        print()
         tkinter.messagebox.showinfo(message="""Sorry but that contact hasn't opened
                                     your invite yet. As a result you can't send them messages""")
         return()
