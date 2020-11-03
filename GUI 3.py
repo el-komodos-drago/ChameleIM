@@ -63,12 +63,16 @@ def OpenInvite():
     RenderContactBar()
 
 def SendMessageGUI():
-    global SendMessageField
-    text = SendMessageField.get()
-    print(text)
     global ContactID
     if ContactID == 1:
         return()
+    PublicKeyID, PublicKey, Max, IDpassword = GetContactKey(ContactID)
+    if Max == 1:
+        return()
+    
+    global SendMessageField
+    text = SendMessageField.get()
+    print(text)
     
     InputFile = selectfile(title="Select image to hide invite in",
                            filetypes=(("png files","*.png"),))
@@ -95,7 +99,7 @@ def SendMessageGUI():
         message = json.dumps([text])
         print(message)
     
-    PublicKeyID, PublicKey, Max, IDpassword = GetContactKey(ContactID)
+    
     
     SendMessageField.delete(0, tkinter.END)
     
