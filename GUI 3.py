@@ -6,8 +6,6 @@ from tkinter.font import Font
 
 import json
 
-#from PIL import Image, ImageTk
-
 import time
 
 from Contacts import RetriveContacts, GetContactName, RetriveRecentMessages, RetriveMessages
