@@ -112,7 +112,7 @@ def PollMessages(ContactID):
         MessageID = IndexMessage(ContactID, PublicKeyID, 0)
         with open("Messages/"+str(MessageID)+".png","wb") as file:
             file.write(GetImage(FileName,PublicKeyID,KHash)) #As above
-        #DeleteImage(FileName,PublicKeyID,KHash)
+        DeleteImage(FileName,PublicKeyID,KHash)
         
         contents = lsb.reveal("Messages/"+str(MessageID)+".png")
         CipherText = json.loads(contents)
