@@ -138,7 +138,7 @@ def SendMessageGUI():
     else:
         message = json.dumps([text])
         print(message)
-    
+    #message send notice
     
     
     SendMessageField.delete(0, tkinter.END)
@@ -211,7 +211,7 @@ def Refresh():
         PollMessages(contact[0])
 
 def DisplayContact():
-    global ContactID
+    global ContactID 
     ContactName = GetContactName(ContactID)
     
     global ContactDisplayed
@@ -225,12 +225,15 @@ def DisplayContact():
     global MessageListInner
     for child in MessageListInner.winfo_children():
         child.destroy()
-
+    
+    #create very wide widget to ensure correct rendering
     text="----------------------------------------------------------------------------------"
     for i in range(10):
         text = text + "---------------------------------------------------------------------"
         FillWidth = tkinter.Label(MessageListInner,text=text, fg="Light Grey", bg="Light Grey")
     FillWidth.pack()
+    
+    #progress info here
     messages = RetriveMessages(ContactID)
     for message in messages:
         MessageFrame = RenderMessage(message,ContactName)
