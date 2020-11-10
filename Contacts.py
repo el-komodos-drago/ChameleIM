@@ -11,6 +11,14 @@ def AddContact(PublicKeyID,PublicKey,Max,IDpassword,ContactName):
         database.execute(query, data)
     return(ContactID)
 
+def UpdateContactKey(ContactID, PublicKeyID, PublicKey, Max):
+    with sqlite3.connect("data.db") as database:
+        query = """UPDATE contacts SET PublicKeyID=(?), PublicKey=(?), Max=(?)
+                    WHERE ContactID = (?)"""
+        print([PublicKeyID, PublicKey, Max, ContactID])
+        database.execute(query,[PublicKeyID, PublicKey, str(Max), ContactID])
+    return()
+
 def SavePrivateKey(PrivateKey):    
     with sqlite3.connect("file:data.db?mode=ro", uri=True) as database: #open the database
         for row in database.execute("SELECT MAX(PrivateKeyID) FROM keys"):
@@ -27,12 +35,26 @@ def SaveKeypair(PublicKeyID, ContactID, PublicKey, Max, PrivateKeyID,salt):
         database.execute(query, data)
     return()
         
-def CurrentKeyDetails(ContactID):
+def CurrentSaveDetails(ContactID):
     with sqlite3.connect("file:data.db?mode=ro", uri=True) as database:
-        query = """SELECT PublicKeyID, PublicKey, Max FROM keys WHERE KContactID = (?)"""
+        query = """SELECT PublicKeyID, PublicKey, Max FROM keys
+                   WHERE KContactID = (?) AND Current = 1"""
         for row in database.execute(query, [str(ContactID)]):
             PublicKeyID,PublicKey,Max = row
     return(PublicKeyID,PublicKey,Max)
+
+def CurrentGetDetails(ContactID):
+    with sqlite3.connect("file:data.db?mode=ro", uri=True) as database:
+        query = """SELECT PublicKeyID, PrivateKeyID, Max, salt FROM keys
+                   WHERE KContactID = (?) AND Current = 1"""
+        for row in database.execute(query, [ContactID]):
+            PublicKeyID,PrivateKeyID,Max,salt = row
+    return(PublicKeyID,PrivateKeyID,Max,salt)
+
+def RetriveContactIDs():
+    with sqlite3.connect("file:data.db?mode=ro", uri=True) as database:
+        contacts = database.execute("SELECT ContactID FROM contacts WHERE ContactID > 1")
+    return(contacts)
 
 def RetriveContacts():
     with sqlite3.connect("file:data.db?mode=ro", uri=True) as database:
@@ -50,6 +72,13 @@ def GetContactName(ContactID):
         for row in database.execute(query, [str(ContactID)]):
             ContactName = row[0]
     return(ContactName)
+
+def GetIDpassword(ContactID):
+    with sqlite3.connect("file:data.db?mode=ro", uri=True) as database:
+        query = """SELECT IDpassword FROM contacts WHERE ContactID = (?)"""
+        for row in database.execute(query, [str(ContactID)]):
+            IDpassword = row[0]
+    return(IDpassword)
 
 def GetContactKey(ContactID):
     with sqlite3.connect("file:data.db?mode=ro", uri=True) as database:
@@ -101,13 +130,13 @@ def RetriveRecentMessages():
     return(MessagesList)
 
 
-with sqlite3.connect("data.db") as data: 
+with sqlite3.connect("data.db") as database: 
     try: #check tables exist
-        ContactIDs = data.execute("SELECT ContactID FROM contacts WHERE ContactID=1")
+        ContactIDs = database.execute("SELECT ContactID FROM contacts WHERE ContactID=1")
         for row in ContactIDs:
             print(row)
     except sqlite3.OperationalError: #if it doesn't, create it
-        data.execute("""CREATE TABLE contacts (
+        database.execute("""CREATE TABLE contacts (
                         ContactID     integer primary key,
                         PublicKeyID   integer,
                         PublicKey     text,       --must be text, number to big to be integer
@@ -115,9 +144,9 @@ with sqlite3.connect("data.db") as data:
                         IDpassword    text,
                         ContactName   text)""")
         query = "INSERT INTO contacts VALUES (?,?,?,?,?,?)"
-        data.execute(query, [1,1,1,1,"",""])
+        database.execute(query, [1,1,1,1,"",""])
         
-        data.execute("""CREATE TABLE keys (
+        database.execute("""CREATE TABLE keys (
                         PublicKeyID  integer primary key,
                         KContactID   integer,
                         Current      integer,
@@ -127,9 +156,9 @@ with sqlite3.connect("data.db") as data:
                         salt         text,
                         FOREIGN KEY(KContactID) REFERENCES contacts(ContactID))""")
         query = "INSERT INTO keys VALUES (?,?,?,?,?,?,?)"
-        data.execute(query, [1,1,1,1,1,1,""])
+        database.execute(query, [1,1,1,1,1,1,""])
         
-        data.execute("""CREATE TABLE messages (
+        database.execute("""CREATE TABLE messages (
                         MessageID    integer primary key,
                         MContactID   integer,
                         MPublicKeyID integer,
@@ -138,4 +167,6 @@ with sqlite3.connect("data.db") as data:
                         FOREIGN KEY(MContactID) REFERENCES contacts(ContactID),
                         FOREIGN KEY(MPublicKeyID) REFERENCES keys(PublicKeyID))""")
         query = "INSERT INTO messages VALUES (?,?,?,?,?)"
-        data.execute(query, [1,1,1,1,1])
+        database.execute(query, [1,1,1,1,1])
+
+

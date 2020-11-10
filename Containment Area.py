@@ -29,6 +29,20 @@ def String2Num(string):
         power -= 1
     return(integer)
 
+def GetKHash(PublicKeyID):
+    with open("WiFall Key") as WiFallKey:
+        WFK = WiFallKey.read() #Save the contents of the WiFall Key file to WFK
+    with sqlite3.connect("data.db") as database:
+        query = "SELECT salt FROM keys WHERE PublicKeyID = (?)"
+        print(query)
+        for row in database.execute(query,[PublicKeyID]):
+            print(row)
+            salt = row[0]    
+    KHash = Hash(WFK,salt)
+    return(KHash)
+
+
+
 
 print(Num2String(1519242))
 print(String2Num("3mu8"))

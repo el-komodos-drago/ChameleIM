@@ -11,8 +11,9 @@ import json
 import time
 
 from Contacts import RetriveContacts, GetContactName, RetriveRecentMessages, RetriveMessages
-from Contacts import LatestMessageMine, GetContactKey
+from Contacts import LatestMessageMine, GetContactKey, RetriveContactIDs
 from MainLibrary import CreateInvite, AcceptInvite, GetMessageText,SendMessage,CreateKeypair
+from MainLibrary import PollMessages
 
 def SendInvite():
     ContactName = ""
@@ -32,9 +33,21 @@ def SendInvite():
     notice = tkinter.Label(master=MainWindow, textvariable=NoticeText)
     notice.grid(row=3, column=0, columnspan=3,sticky="ew")
     MainWindow.update_idletasks()
-    for progress in CreateInvite(ContactName,InputFile,OutputFile): #CreateInvite uses yeild
-        NoticeText.set(progress)
-        MainWindow.update_idletasks()
+    Unsent = True
+    while Unsent:
+        if InputFile == "":
+            return()
+        try:
+            for progress in CreateInvite(ContactName,InputFile,OutputFile): #CreateInvite uses yeild
+                NoticeText.set(progress)
+                MainWindow.update_idletasks()
+            Unsent = False
+        except Exception:
+            message = "Sorry but the image you selected was not big enough to store "
+            message = message + "the invite in. Press ok to select a new image."
+            tkinter.messagebox.showinfo(message=message)
+            InputFile = selectfile(title="Select image to hide invite in",
+                                   filetypes=(("png files","*.png"),))
     NoticeText.set("Invite created")
     MainWindow.update_idletasks()
     time.sleep(3)
@@ -50,16 +63,39 @@ def OpenInvite():
         return()
     InputFile = selectfile(title="Select image to hide invite in",
                            filetypes=(("png files","*.png"),))
-    if InputFile == "":
-        return()
     
     NoticeText = tkinter.StringVar()
     notice = tkinter.Label(master=MainWindow, textvariable=NoticeText)
     notice.grid(row=3, column=0, columnspan=3,sticky="ew")
     MainWindow.update_idletasks()
-    for attempt in AcceptInvite(ContactName,InputFile): #CreateInvite uses yeild
-        NoticeText.set("Generating Keypair, Attempt: "+attempt)
-        MainWindow.update_idletasks()
+    Unsent, FirstTry,OutputFile = True, True,InputFile
+    while Unsent:
+        print(InputFile)
+        if InputFile == "":
+            print("OI-2")
+            return()
+        try:
+            for attempt in AcceptInvite(ContactName,InputFile,OutputFile): #CreateInvite uses yeild
+                NoticeText.set(attempt)
+                MainWindow.update_idletasks()
+            Unsent = False
+            notice.destroy()
+            print("OI-3")
+        except TypeError:
+            raise
+            return()
+        except Exception as exception:
+            print("OI-1")
+            if FirstTry:
+                message = "Sorry but the image contained in the invite was not big enough "
+            else:
+                message = "Sorry but the image you selected was not big enough "
+            FirstTry = False
+            message = message + "to hide the reply in. Press ok to select a new image."
+            tkinter.messagebox.showinfo(message=message)
+            OutputFile = selectfile(title="Select image to hide invite in",
+                                    filetypes=(("png files","*.png"),))
+
     RenderContactBar()
 
 def SendMessageGUI():
@@ -84,8 +120,8 @@ def SendMessageGUI():
     if InputFile == "":
         return()
     
-    GenerateNewKeypair = LatestMessageMine(ContactID) #0 is True, 1 is False.
-    if GenerateNewKeypair == 0:
+    LMM = LatestMessageMine(ContactID)
+    if LMM == 0: # generate new keypair
         NoticeText = tkinter.StringVar()
         notice = tkinter.Label(master=MainWindow, textvariable=NoticeText)
         notice.grid(row=3, column=0, columnspan=3,sticky="ew")
@@ -113,9 +149,6 @@ def SendMessageGUI():
 def ContactSettings():
     print()
 
-def Refresh():
-    print()
-
 def ContactFromList(details):
     global ContactButtons
     item = ContactButtons.curselection()[0]
@@ -141,6 +174,45 @@ def ContactFromRecent(details):
 def DisplayImage(MessageID):
     print(MessageID)
 
+def RenderMessage(message,ContactName):
+    MessageFrame = tkinter.Frame(MessageListInner, bg="Dark Grey",
+                                     highlightbackground="black", highlightthickness=0)
+    if message[0] == 1:
+        MessageFrom = "Me"
+    else:
+        MessageFrom = ContactName
+    MessageFromLabel = tkinter.Label(master=MessageFrame,text=MessageFrom,
+                                     bg="Dark Grey", relief = tkinter.FLAT,
+                                     font="Arial 10 bold")
+    MessageFromLabel.pack(anchor="w")
+    ImageAddress = "messages/"+str(message[1])+".png"
+    MessageImage = tkinter.PhotoImage(file = ImageAddress)
+    width = MessageImage.width()
+    subsample = int(width / 200)
+    MessageImage = MessageImage.subsample(subsample)
+    #MessageImage = ImageTk.PhotoImage(Image.open(ImageAddress))
+    MessageImageButton = tkinter.Button(MessageFrame, image=MessageImage,
+                                        command = lambda a=message[1]: DisplayImage(a),
+                                        relief = tkinter.FLAT)
+    MessageImageButton.image = MessageImage
+    MessageImageButton.pack(anchor="w", padx=5)        
+    MessageText = GetMessageText(message[1], message[3],message[2])
+    MessageTextLabel = tkinter.Label(master=MessageFrame,text=MessageText,
+                                     bg="Dark Grey", relief = tkinter.FLAT)
+    MessageTextLabel.pack(anchor="w")
+    return(MessageFrame)
+
+def Refresh():
+    global ContactID
+    if ContactID != 1:
+        MessageTexts = PollMessages(ContactID)
+    
+    contacts = RetriveContactIDs()
+    for contact in contacts:
+        PollMessages(contact[0])
+    
+    print()
+
 def DisplayContact():
     global ContactID
     ContactName = GetContactName(ContactID)
@@ -156,13 +228,7 @@ def DisplayContact():
     global MessageListInner
     for child in MessageListInner.winfo_children():
         child.destroy()
-    
-    
-    #MessageListInner.destroy()
-    #MessageListInner = tkinter.Frame(master=MessageListScrollBox, bg="Light Grey")
-    #MessageListInner.pack(fill=tkinter.X)
-    #MessageListInner.bind("<Configure>",lambda e: MessageListScrollBox.configure(
-    #                      scrollregion=MessageListScrollBox.bbox("all")))
+
     text="----------------------------------------------------------------------------------"
     for i in range(10):
         text = text + "---------------------------------------------------------------------"
@@ -170,32 +236,7 @@ def DisplayContact():
     FillWidth.pack()
     messages = RetriveMessages(ContactID)
     for message in messages:
-        MessageFrame = tkinter.Frame(MessageListInner, bg="Dark Grey",
-                                     highlightbackground="black", highlightthickness=0)
-        if message[0] == 1:
-            MessageFrom = "Me"
-        else:
-            MessageFrom = ContactName
-        MessageFromLabel = tkinter.Label(master=MessageFrame,text=MessageFrom,
-                                         bg="Dark Grey", relief = tkinter.FLAT,
-                                         font="Arial 10 bold")
-        MessageFromLabel.pack(anchor="w")
-        ImageAddress = "messages/"+str(message[1])+".png"
-        MessageImage = tkinter.PhotoImage(file = ImageAddress)
-        width = MessageImage.width()
-        subsample = int(width / 200)
-        MessageImage = MessageImage.subsample(subsample)
-        #MessageImage = ImageTk.PhotoImage(Image.open(ImageAddress))
-        MessageImageButton = tkinter.Button(MessageFrame, image=MessageImage,
-                                            command = lambda a=message[1]: DisplayImage(a),
-                                            relief = tkinter.FLAT)
-        MessageImageButton.image = MessageImage
-        MessageImageButton.pack(anchor="w", padx=5)        
-        MessageText = GetMessageText(message[1], message[3],message[2])
-        MessageTextLabel = tkinter.Label(master=MessageFrame,text=MessageText,
-                                         bg="Dark Grey", relief = tkinter.FLAT)
-        MessageTextLabel.pack(anchor="w")
-        
+        MessageFrame = RenderMessage(message,ContactName)
         MessageFrame.pack(pady = 5,fill=tkinter.X)
         MainWindow.update_idletasks()
 
@@ -280,6 +321,7 @@ def RenderRecentMessages():
     global RMContactIDs
     RMContactIDs = []
     for message in messages:
+        print(message)
         RMContactIDs.append(message[4])
         RecentMessageList.insert(tkinter.END, message[3])
         MessageText = GetMessageText(message[0],message[1],message[2])

@@ -109,10 +109,26 @@ def CreateKeypair(ContactID):
     SaveKeypair(PublicKeyID, ContactID, PublicKey, Max, PrivateKeyID,salt)
     return(PublicKeyID,PublicKey,Max)
 
+def CalcKHash(salt):
+    with open("WiFall Key") as WiFallKey:
+        WFK = WiFallKey.read()
+    KHash = Hash(WFK,salt)
+    return(KHash)
+
 ContactName = "AVeryLongName"
 MaxCharacters = 10
 ContactName = ContactName[0:(MaxCharacters-3)]+"..."
 print(ContactName)
+
+PublicKeyID, salt = RegisterPublicKey()
+print(PublicKeyID)
+SendImage("FJR.png",PublicKeyID)
+KHash = json.dumps(CalcKHash(salt))
+print(KHash)
+images = json.loads(GetImageList(PublicKeyID,KHash))
+print(images)
+for image in images:
+    print(GetImage(image,PublicKeyID,KHash))
 
 #string = Num2String(1259)
 #print(string)
