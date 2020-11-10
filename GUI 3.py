@@ -210,8 +210,6 @@ def Refresh():
     contacts = RetriveContactIDs()
     for contact in contacts:
         PollMessages(contact[0])
-    
-    print()
 
 def DisplayContact():
     global ContactID
