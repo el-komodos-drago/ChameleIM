@@ -1,3 +1,4 @@
+#Version 0.1.0
 import tkinter
 from tkinter.filedialog import askopenfilename as selectfile
 from tkinter.filedialog import asksaveasfilename as selectsavefile
