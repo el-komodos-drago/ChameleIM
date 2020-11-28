@@ -2,7 +2,7 @@ import sqlite3
 import time
 
 def AddContact(PublicKeyID,PublicKey,Max,IDpassword,ContactName):
-    with sqlite3.connect("data.db") as database:
+    with sqlite3.connect("file:data.db?mode=rw", uri=True) as database:
         for row in database.execute("SELECT MAX(ContactID) FROM contacts"):
             ContactID = row[0]+1
         query = """INSERT INTO contacts(ContactID, PublicKeyID, PublicKey, Max, IDpassword,
@@ -12,7 +12,7 @@ def AddContact(PublicKeyID,PublicKey,Max,IDpassword,ContactName):
     return(ContactID)
 
 def UpdateContactKey(ContactID, PublicKeyID, PublicKey, Max):
-    with sqlite3.connect("data.db") as database:
+    with sqlite3.connect("file:data.db?mode=rw", uri=True) as database:
         query = """UPDATE contacts SET PublicKeyID=(?), PublicKey=(?), Max=(?)
                     WHERE ContactID = (?)"""
         print([PublicKeyID, PublicKey, Max, ContactID])
@@ -100,7 +100,7 @@ def IndexMessage(ContactID, PublicKeyID, mine):
     TimeSent = int(time.time())
     querry = """INSERT INTO messages(MessageID, MContactID, MPublicKeyID, Time, Mine)
                 VALUES (?,?,?,?,?)"""
-    with sqlite3.connect("data.db") as database:
+    with sqlite3.connect("file:data.db?mode=rw", uri=True) as database:
         for row in database.execute("SELECT MAX(MessageID) FROM messages"):
             MessageID = row[0]+1
         database.execute(querry,[MessageID,ContactID,PublicKeyID,TimeSent,mine])

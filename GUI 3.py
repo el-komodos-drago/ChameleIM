@@ -104,8 +104,7 @@ def SendMessageGUI():
     PublicKeyID, PublicKey, Max, IDpassword = GetContactKey(ContactID)
     print(PublicKeyID, PublicKey, Max, IDpassword)
     
-    if Max == "1":
-        print("ABC")
+    if Max == "1": #if the first key hasn't been recieved then don't allow a message to be sent
         message = "Sorry but that contact hasn't opened your invite yet. "
         message = message + "As a result you can't send them messages"
         tkinter.messagebox.showinfo(message=message)
@@ -332,6 +331,7 @@ def RenderRecentMessages():
     RecentMessageList.bind("<<ListboxSelect>>",ContactFromRecent)
 
 def CreateMessageList():
+    #Code based on https://blog.tecladocode.com/tkinter-scrollable-frames/ 
     MessageListScrollBox = tkinter.Canvas(MessageList, bg="Light Grey", highlightthickness=0)
     MLScrollBar = tkinter.Scrollbar(MessageList, orient="vertical",
                                     command=MessageListScrollBox.yview)
