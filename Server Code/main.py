@@ -52,7 +52,7 @@ def register_public_key (KHash=None):
    if request.method == 'POST':
       KHash = request.form['password']
       PublicKeyID = RegisterPublicKey(KHash)
-      if True: #I'm not entirely sure that this needs to be here
+      if True: #Finagle's line
          return str(PublicKeyID)
    return render_template('register.html')
 
