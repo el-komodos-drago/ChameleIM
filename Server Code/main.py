@@ -39,12 +39,27 @@ def index():
 @app.route('/hello/')
 @app.route('/hello/<name>')
 def hello(name=None):
-    return render_template('hello.html', name=name)
+   if DEBUGGING:
+      return render_template('hello.html', name=name)
+   else:
+      return "turn debugging mode on to view this page"
 
 @app.route('/list', methods=['GET'])
 def list_files():
-    files = os.listdir(app.config['UPLOAD_FOLDER'])
-    return render_template('list.html', files=files)
+   if DEBUGGING:
+      files = os.listdir(app.config['UPLOAD_FOLDER'])
+      return render_template('list.html', files=files)
+   else:
+      return "turn debugging mode on to view this page"
+
+@app.route('/download/<filename>')
+def download_file(filename):
+   if DEBUGGING:
+      if os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], filename)):
+         return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
+      raise BadRequest('{0} does not exist'.format(filename))
+   else:
+      return "turn debugging mode on to view this page"
 
 #app body
 @app.route('/register', methods=['GET','POST'])
@@ -89,12 +104,6 @@ def open_file():
    if os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], filename)):
      return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
    raise BadRequest('{0} does not exist'.format(filename))
-
-@app.route('/download/<filename>')
-def download_file(filename):
-    if os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], filename)):
-      return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
-    raise BadRequest('{0} does not exist'.format(filename))
 
 @app.route('/delete', methods=['POST'])
 def delete_file(): #needs to add interact with database

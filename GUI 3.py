@@ -12,7 +12,7 @@ import time
 from Contacts import RetriveContacts, GetContactName, RetriveRecentMessages, RetriveMessages
 from Contacts import LatestMessageMine, GetContactKey, RetriveContactIDs
 from MainLibrary import CreateInvite, AcceptInvite, GetMessageText,SendMessage,CreateKeypair
-from MainLibrary import PollMessages
+from MainLibrary import PollMessages, OpenMessage
 
 def SendInvite():
     ContactName = ""
@@ -69,9 +69,7 @@ def OpenInvite():
     MainWindow.update_idletasks()
     Unsent, FirstTry,OutputFile = True, True,InputFile
     while Unsent:
-        print(InputFile)
         if InputFile == "":
-            print("OI-2")
             return()
         try:
             for attempt in AcceptInvite(ContactName,InputFile,OutputFile): #CreateInvite uses yeild
@@ -79,12 +77,10 @@ def OpenInvite():
                 MainWindow.update_idletasks()
             Unsent = False
             notice.destroy()
-            print("OI-3")
         except TypeError:
             raise
             return()
         except Exception as exception:
-            print("OI-1")
             if FirstTry:
                 message = "Sorry but the image contained in the invite was not big enough "
             else:
@@ -101,8 +97,7 @@ def SendMessageGUI():
     global ContactID
     if ContactID == 1:
         return()
-    PublicKeyID, PublicKey, Max, IDpassword = GetContactKey(ContactID)
-    print(PublicKeyID, PublicKey, Max, IDpassword)
+    PKID, PublicKey, Max, IDpw = GetContactKey(ContactID)
     
     if Max == "1": #if the first key hasn't been recieved then don't allow a message to be sent
         message = "Sorry but that contact hasn't opened your invite yet. "
@@ -124,7 +119,7 @@ def SendMessageGUI():
         notice = tkinter.Label(master=MainWindow, textvariable=NoticeText)
         notice.grid(row=3, column=0, columnspan=3,sticky="ew")
         MainWindow.update_idletasks()
-        
+
         for ReturnedData in CreateKeypair(ContactID): # Create Keypair to send
             if type(ReturnedData) is str:
                 NoticeText.set(ReturnedData)
@@ -139,10 +134,29 @@ def SendMessageGUI():
         print(message)
     #message send notice
     
-    
     SendMessageField.delete(0, tkinter.END)
     
-    SendMessage(InputFile,message,IDpassword,PublicKey,Max,ContactID, PublicKeyID)
+    Unsent = True
+    while Unsent:
+        if InputFile == "":
+            return()
+        try:
+            for attempt in SendMessage(InputFile,message,IDpw,PublicKey,Max,ContactID, PKID):
+                NoticeText.set(attempt)
+                MainWindow.update_idletasks()
+            Unsent = False
+            notice.destroy()
+        except TypeError: #in the event of a networking error ...
+            raise #... do not handle this (as it should not occur) ...
+            return() #... and don't let the next statement handle it either
+        except Exception as exception:
+            message = "Sorry but the image you selected was not big enough "
+            message = message + "to hide the reply in. Press ok to select a new image."
+            tkinter.messagebox.showinfo(message=message)
+            OutputFile = selectfile(title="Select image to hide invite in",
+                                    filetypes=(("png files","*.png"),))
+    
+    
 
 def ContactSettings():
     print()
@@ -201,11 +215,17 @@ def RenderMessage(message,ContactName):
     return(MessageFrame)
 
 def Refresh():
-    global ContactID
-    if ContactID != 1:
-        MessageTexts = PollMessages(ContactID)
-    
     contacts = RetriveContactIDs()
+    
+    global ContactID
+    if ContactID != 1: #Priorities the open contact
+        contacts.remove(ContactID) #Remove them from the list of contracts to poll for
+        MessageTexts = PollMessages(ContactID)
+        for FileName in FileNames:
+            MessageText = OpenMessage(FileName)
+            MessageTexts.append(MessageText)
+        
+    
     for contact in contacts:
         PollMessages(contact[0])
 

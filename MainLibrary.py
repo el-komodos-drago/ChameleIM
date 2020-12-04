@@ -106,32 +106,32 @@ def PollMessages(ContactID):
         WFK = WiFallKey.read()
         KHash = Hash(WFK,salt)[0]
     
-    MessageTexts = []
     FileNames = json.loads(GetImageList(PublicKeyID,KHash)) #Dev Note: VALIDATION!!!
-    for FileName in FileNames:
-        MessageID = IndexMessage(ContactID, PublicKeyID, 0)
-        with open("Messages/"+str(MessageID)+".png","wb") as file:
-            file.write(GetImage(FileName,PublicKeyID,KHash)) #As above
-        DeleteImage(FileName,PublicKeyID,KHash)
-        
-        contents = lsb.reveal("Messages/"+str(MessageID)+".png")
-        CipherText = json.loads(contents)
-        MessageText = decrypt(int(PrivateKey),int(Max),CipherText)
-        MessageText = MessageText.split("')")
-        MessageHash = MessageText.pop(0)+"')"
-        MessageText = "')".join(MessageText)
-        if MessageHash != str(Hash(MessageText,IDpassword)):
-            print("You shouldn't be seeing this")
-        
-        Message = json.loads(MessageText)
-        print(len(Message))
-        print("PM 2")
-        if len(Message) > 1:
-            print("PM - 1")
-            MessageContents, ContactPublicKeyID, ContactPublicKey, ContactMax = Message
-            UpdateContactKey(ContactID,ContactPublicKeyID, ContactPublicKey, ContactMax)
-        MessageTexts.append(Message[0])
-    return(MessageTexts)
+    return(FileNames)
+    
+def OpenMessage(FileName)
+    MessageID = IndexMessage(ContactID, PublicKeyID, 0)
+    with open("Messages/"+str(MessageID)+".png","wb") as file:
+        file.write(GetImage(FileName,PublicKeyID,KHash)) #As above
+    DeleteImage(FileName,PublicKeyID,KHash)
+    
+    contents = lsb.reveal("Messages/"+str(MessageID)+".png")
+    CipherText = json.loads(contents)
+    MessageText = decrypt(int(PrivateKey),int(Max),CipherText)
+    MessageText = MessageText.split("')")
+    MessageHash = MessageText.pop(0)+"')"
+    MessageText = "')".join(MessageText)
+    if MessageHash != str(Hash(MessageText,IDpassword)):
+        return()
+    
+    Message = json.loads(MessageText)
+    print(len(Message))
+    print("PM 2")
+    if len(Message) > 1:
+        print("PM - 1")
+        MessageContents, ContactPublicKeyID, ContactPublicKey, ContactMax = Message
+        UpdateContactKey(ContactID,ContactPublicKeyID, ContactPublicKey, ContactMax)
+    return(Message[0])
         
 
 
