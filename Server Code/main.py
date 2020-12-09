@@ -63,7 +63,7 @@ def download_file(filename):
 
 #app body
 @app.route('/register', methods=['GET','POST'])
-def register_public_key (KHash=None):
+def upload_public_key (KHash=None): # deals with registering a public key
    if request.method == 'POST':
       KHash = request.form['password']
       PublicKeyID = RegisterPublicKey(KHash)
