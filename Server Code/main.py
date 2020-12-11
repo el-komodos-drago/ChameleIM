@@ -74,10 +74,13 @@ def upload_public_key (KHash=None): # deals with registering a public key
 @app.route('/upload/<filename>', methods=['GET', 'POST'])
 def upload_file(filename=None):
     if request.method == 'POST':
+      # Get data out of HTTP request:
       file = request.files['image']
       address = request.form['address']
+      # Defensively process filename:
       _check_extension(filename)
       filename = _safe_filename(filename)
+      # Save the file in the folder and the data in the database
       file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
       IndexMessage(filename,address)
     return render_template('upload.html')
@@ -95,12 +98,15 @@ def create_list():
 
 @app.route('/OpenImage', methods=['POST'])
 def open_file():
+   # Get data out of HTTP request:
    KHash = request.authorization.password
    PublicKeyID = request.authorization.username
    filename = request.form['filename']
+   # Authenticate user:
    authorized,trace = CorrectCredentials(PublicKeyID,KHash,filename)
    if not authorized:
       return "failed to access "+filename+" with PublicKeyID "+PublicKeyID+" and KHash "+KHash +" authorized= "+str(trace)
+   # Send file from folder
    if os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], filename)):
      return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
    raise BadRequest('{0} does not exist'.format(filename))
