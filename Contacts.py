@@ -117,11 +117,12 @@ def RetriveMessages(ContactID):
     return(messages)
 
 def RetriveRecentMessages():
+    # Gets the MessageID, PrivateKeyID, Max, and ContactID for the 10 most recent messages
     query = """SELECT MessageID, PrivateKeyID, Max, MContactID
                FROM messages INER JOIN keys ON MPublicKeyID = PublicKeyID
-               WHERE Mine != 1
-               ORDER BY time DESC
-               LIMIT 10"""
+               WHERE Mine != 1     -- from other users, not messages sent by this user
+               ORDER BY time DESC  -- newest messages (with higher Unix times) first
+               LIMIT 10            -- only the first 10"""
     with sqlite3.connect("file:data.db?mode=ro", uri=True) as database:
         messages = database.execute(query)
     MessagesList = []
@@ -169,4 +170,4 @@ with sqlite3.connect("data.db") as database:
         query = "INSERT INTO messages VALUES (?,?,?,?,?)"
         database.execute(query, [1,1,1,1,1])
 
-
+RetriveRecentMessages()
