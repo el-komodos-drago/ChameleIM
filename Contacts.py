@@ -57,14 +57,15 @@ def RetriveContactIDs():
     return(contacts)
 
 def RetriveContacts():
+    #Gives a list of ContactName and ContactID s in order of most recent message
     with sqlite3.connect("file:data.db?mode=ro", uri=True) as database:
         query = """SELECT DISTINCT contacts.ContactName, contacts.ContactID
                    FROM messages INER JOIN contacts ON 
                    MContactID = contacts.ContactID
-                   WHERE contacts.ContactID > 1
-                   ORDER BY time"""
+                   WHERE contacts.ContactID > 1    --exclude the test contact
+                   ORDER BY time                   --order by most recent message"""
         contacts = database.execute(query)
-    return(contacts)
+    return(contacts) #returns a list of ContactName and ContactID in a SQL itterable
 
 def GetContactName(ContactID):
     with sqlite3.connect("file:data.db?mode=ro", uri=True) as database:
@@ -107,6 +108,8 @@ def IndexMessage(ContactID, PublicKeyID, mine):
     return(MessageID)
 
 def RetriveMessages(ContactID):
+    # This retreives to Mine and MessageID and assosiated key Max and PrivateKeyID
+    #for all messages sent by that contact.
     with sqlite3.connect("file:data.db?mode=ro", uri=True) as database:
         query = """SELECT Mine, MessageID, keys.Max, keys.PrivateKeyID
                    FROM messages INER JOIN keys ON 
@@ -114,7 +117,7 @@ def RetriveMessages(ContactID):
                    WHERE MContactID = (?)
                    ORDER BY time"""
         messages = database.execute(query,[ContactID])
-    return(messages)
+    return(messages) #Returns lists of Mines, MessageIDs, Maxs, and PrivateKeyIDs in a SQL itterable
 
 def RetriveRecentMessages():
     # Gets the MessageID, PrivateKeyID, Max, and ContactID for the 10 most recent messages
@@ -125,10 +128,10 @@ def RetriveRecentMessages():
                LIMIT 10            -- only the first 10"""
     with sqlite3.connect("file:data.db?mode=ro", uri=True) as database:
         messages = database.execute(query)
-    MessagesList = [] #This is a 2-d array containing other arrays that are 5 items long
+    MessagesList = []
     for message in messages: #Convert from SQL itterable to a 2-d array
         MessagesList.append([message[0],message[1],message[2],GetContactName(message[3]),message[3]])
-    return(MessagesList)
+    return(MessagesList) #This is a 2-d array containing other arrays that are 5 items long
 
 with sqlite3.connect("data.db") as database: 
     try: #check tables exist
