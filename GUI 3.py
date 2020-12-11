@@ -94,7 +94,7 @@ def OpenInvite():
     RenderContactBar()
 
 def SendMessageGUI():
-    #This function processes 
+    #This function processes entries into the Send Message Field text box.
     global ContactID
     if ContactID == 1:
         return()
