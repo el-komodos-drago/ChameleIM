@@ -14,6 +14,9 @@ from Contacts import LatestMessageMine, GetContactKey, RetriveContactIDs
 from MainLibrary import CreateInvite, AcceptInvite, GetMessageText,SendMessage,CreateKeypair
 from MainLibrary import PollMessages, OpenMessage
 
+##################################
+#####  GUI ACTION FUNCTIONS  #####
+##################################
 def SendInvite():
     ContactName = ""
     while ContactName == "":
@@ -260,7 +263,10 @@ def DisplayContact():
         MessageFrame = RenderMessage(message,ContactName)
         MessageFrame.pack(pady = 5,fill=tkinter.X)
         MainWindow.update_idletasks()
-
+        
+############################################
+#####  GUI ELEMENT CREATION FUNCTIONS  #####
+############################################
 def CreateInviteButton():
     SendInviteButton = tkinter.Button(master=ContactsHeader, text="📨 Send Invite", bg="Dark Grey", 
                                   relief = tkinter.FLAT, command=SendInvite)
