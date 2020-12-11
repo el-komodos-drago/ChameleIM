@@ -111,9 +111,10 @@ def SendMessageGUI():
     
     InputFile = selectfile(title="Select image to hide invite in",
                            filetypes=(("png files","*.png"),))
-    if InputFile == "":
+    if InputFile == "": # InputFile will be empty if cancel was clicked.
         return()
     
+    #Get contents for message:
     LMM = LatestMessageMine(ContactID)
     if LMM == 0: # generate new keypair
         NoticeText = tkinter.StringVar()
@@ -133,10 +134,10 @@ def SendMessageGUI():
     else:
         message = json.dumps([text])
         print(message)
-    #message send notice
     
     SendMessageField.delete(0, tkinter.END)
     
+    #Send message contents:
     Unsent = True
     while Unsent:
         if InputFile == "":
