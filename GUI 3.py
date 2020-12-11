@@ -121,8 +121,8 @@ def SendMessageGUI():
         return()
     
     #Get contents for message:
-    LMM = LatestMessageMine(ContactID)
-    if LMM == 0: # generate new keypair
+    LMM = LatestMessageMine(ContactID) # Was the last message send by the user
+    if LMM == 0: # If 0 then the answer is no so a new keypair should be generated
         NoticeText = tkinter.StringVar()
         notice = tkinter.Label(master=MainWindow, textvariable=NoticeText)
         notice.grid(row=3, column=0, columnspan=3,sticky="ew")
@@ -137,8 +137,8 @@ def SendMessageGUI():
         
         notice.destroy()
         message = json.dumps([text,MyPublicKeyID,MyPublicKey,MyMax])
-    else:
-        message = json.dumps([text])
+    else: # Otherwise...
+        message = json.dumps([text]) #...place the text in a list and then place it in a JSON
         print(message)
     
     SendMessageField.delete(0, tkinter.END)
