@@ -125,8 +125,8 @@ def RetriveRecentMessages():
                LIMIT 10            -- only the first 10"""
     with sqlite3.connect("file:data.db?mode=ro", uri=True) as database:
         messages = database.execute(query)
-    MessagesList = []
-    for message in messages:
+    MessagesList = [] #This is a 2-d array containing other arrays that are 5 items long
+    for message in messages: #Convert from SQL itterable to a 2-d array
         MessagesList.append([message[0],message[1],message[2],GetContactName(message[3]),message[3]])
     return(MessagesList)
 
