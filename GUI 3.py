@@ -102,7 +102,7 @@ def OpenInvite():
 def SendMessageGUI():
     #This function processes entries into the Send Message Field text box.
     global ContactID
-    if ContactID == 1:
+    if ContactID == 1: # If ContactID the user hasn't selected a contact yet.
         return()
     PKID, PublicKey, Max, IDpw = GetContactKey(ContactID)
     
@@ -271,8 +271,8 @@ def DisplayContact():
 #####  GUI ELEMENT CREATION FUNCTIONS  #####
 ############################################
 def CreateInviteButton():
-    SendInviteButton = tkinter.Button(master=ContactsHeader, text="📨 Send Invite", bg="Dark Grey", 
-                                  relief = tkinter.FLAT, command=SendInvite)
+    SendInviteButton = tkinter.Button(master=ContactsHeader, text="📨 Send Invite",
+                                      bg="Dark Grey",relief = tkinter.FLAT, command=SendInvite)
     SendInviteButton.pack(side=tkinter.LEFT)
 
 def RenderMessagesHeader():
