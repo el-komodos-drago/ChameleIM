@@ -14,6 +14,9 @@ from Contacts import LatestMessageMine, GetContactKey, RetriveContactIDs
 from MainLibrary import CreateInvite, AcceptInvite, GetMessageText,SendMessage,CreateKeypair
 from MainLibrary import PollMessages, OpenMessage
 
+# Tkinter is the nemisis of understandable code.
+#This section is best understood with the documented design and tea. A lot of tea.
+
 ##################################
 #####  GUI ACTION FUNCTIONS  #####
 ##################################
