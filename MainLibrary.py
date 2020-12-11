@@ -20,6 +20,7 @@ def CreateKeypair(ContactID):
     yield(PublicKeyID,PublicKey,Max)
 
 def CreateInvite(ContactName,filename,destination):
+    # This function creates an invite file
     with open("WiFall Key") as WiFallKey:
         WFK = WiFallKey.read()
     IDpassword = Hash(WFK)[1] #This gets a random salt
