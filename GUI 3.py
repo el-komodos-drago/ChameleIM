@@ -259,8 +259,41 @@ def DisplayContact():
         MessageFrame.pack(pady = 5,fill=tkinter.X)
         MainWindow.update_idletasks()
 
+def CreateInviteButton():
+    SendInviteButton = tkinter.Button(master=ContactsHeader, text="📨 Send Invite", bg="Dark Grey", 
+                                  relief = tkinter.FLAT, command=SendInvite)
+    SendInviteButton.pack(side=tkinter.LEFT)
+
+def RenderMessagesHeader():
+    global ContactDisplayed
+    ContactDisplayed = tkinter.Label(master=MessagesHeader,text="",
+                                     bg="Dark Grey", relief = tkinter.FLAT)
+    ContactDisplayed.pack(padx=0, side=tkinter.LEFT,anchor="w")
+    ContactSetttings = tkinter.Button(master=MessagesHeader,text="⚙️",
+                                     bg="Dark Grey", relief = tkinter.FLAT,
+                                     command=ContactSettings)
+    ContactSetttings.pack(padx=0, side=tkinter.RIGHT,anchor="e")
+    RefreshButton = tkinter.Button(master=MessagesHeader,text="⟳",
+                             bg="Dark Grey", relief = tkinter.FLAT,
+                             command=Refresh)
+    RefreshButton.pack(padx=0, side=tkinter.RIGHT,anchor="e")
+    return(ContactDisplayed)
+
+def RenderRecentHeader():
+    ContactDisplayed = tkinter.Label(master=RecentHeader,text="Recent Messages",
+                                     bg="Dark Grey", relief = tkinter.FLAT)
+    ContactDisplayed.pack(padx=0, side=tkinter.LEFT,anchor="w")
+    ContactSetttings = tkinter.Button(master=RecentHeader,text="🛑",
+                                     bg="Dark Grey", relief = tkinter.FLAT,
+                                     command=ContactSettings)
+    ContactSetttings.pack(padx=0, side=tkinter.RIGHT,anchor="e")
+    RefreshButton = tkinter.Button(master=RecentHeader,text="⚙️",
+                             bg="Dark Grey", relief = tkinter.FLAT,
+                             command=Refresh)
+    RefreshButton.pack(padx=0, side=tkinter.RIGHT,anchor="e")
+
 def RenderContactBar(MaxWidth = 15):
-    CourierNew = Font(family="Courier New")
+    # CourierNew = Font(family="Courier New")
     MaxCharacters = 15
     
     ContactBar = tkinter.Frame(master=MainWindow, bg="Light Grey",
@@ -297,59 +330,6 @@ def RenderContactBar(MaxWidth = 15):
     AcceptInviteButton.pack(padx=10, side=tkinter.TOP,anchor="w")
     return(ContactBar)
 
-def RenderMessagesHeader():
-    global ContactDisplayed
-    ContactDisplayed = tkinter.Label(master=MessagesHeader,text="",
-                                     bg="Dark Grey", relief = tkinter.FLAT)
-    ContactDisplayed.pack(padx=0, side=tkinter.LEFT,anchor="w")
-    ContactSetttings = tkinter.Button(master=MessagesHeader,text="⚙️",
-                                     bg="Dark Grey", relief = tkinter.FLAT,
-                                     command=ContactSettings)
-    ContactSetttings.pack(padx=0, side=tkinter.RIGHT,anchor="e")
-    RefreshButton = tkinter.Button(master=MessagesHeader,text="⟳",
-                             bg="Dark Grey", relief = tkinter.FLAT,
-                             command=Refresh)
-    RefreshButton.pack(padx=0, side=tkinter.RIGHT,anchor="e")
-    return(ContactDisplayed)
-
-def RenderRecentHeader():
-    ContactDisplayed = tkinter.Label(master=RecentHeader,text="Recent Messages",
-                                     bg="Dark Grey", relief = tkinter.FLAT)
-    ContactDisplayed.pack(padx=0, side=tkinter.LEFT,anchor="w")
-    ContactSetttings = tkinter.Button(master=RecentHeader,text="🛑",
-                                     bg="Dark Grey", relief = tkinter.FLAT,
-                                     command=ContactSettings)
-    ContactSetttings.pack(padx=0, side=tkinter.RIGHT,anchor="e")
-    RefreshButton = tkinter.Button(master=RecentHeader,text="⚙️",
-                             bg="Dark Grey", relief = tkinter.FLAT,
-                             command=Refresh)
-    RefreshButton.pack(padx=0, side=tkinter.RIGHT,anchor="e")
-    
-def RenderRecentMessages():
-    MScrollBar = tkinter.Scrollbar(RecentMessages, orient=tkinter.VERTICAL)
-    global RecentMessageList
-    RecentMessageList = tkinter.Listbox(RecentMessages, bg="Light Grey", relief = tkinter.FLAT,
-                                        highlightthickness=0,selectbackground="Light Grey",
-                                        fg = "black", selectforeground="black",
-                                        activestyle="none", yscrollcommand=MScrollBar.set)
-    MScrollBar.config(command=RecentMessageList.yview)
-    MScrollBar.pack(side=tkinter.RIGHT,fill=tkinter.Y)
-    RecentMessageList.pack(padx=10, anchor="w", fill=tkinter.Y)
-    
-    messages = RetriveRecentMessages()
-    global RMContactIDs
-    RMContactIDs = []
-    for message in messages:
-        print(message)
-        RMContactIDs.append(message[4])
-        RecentMessageList.insert(tkinter.END, message[3])
-        MessageText = GetMessageText(message[0],message[1],message[2])
-        MessageText.ljust(40)
-        RecentMessageList.insert(tkinter.END, MessageText[:20])
-        RecentMessageList.insert(tkinter.END, MessageText[21:40])
-    
-    RecentMessageList.bind("<<ListboxSelect>>",ContactFromRecent)
-
 def CreateMessageList():
     #Code based on https://blog.tecladocode.com/tkinter-scrollable-frames/ 
     MessageListScrollBox = tkinter.Canvas(MessageList, bg="Light Grey", highlightthickness=0)
@@ -384,6 +364,31 @@ def CreateMessageList():
     SendMessageButton = tkinter.Button(SendMessageFrame, bg = "white", relief="flat",
                                         text="✈",command=SendMessageGUI)
     SendMessageButton.pack(anchor="e",side="right")
+    
+def RenderRecentMessages():
+    MScrollBar = tkinter.Scrollbar(RecentMessages, orient=tkinter.VERTICAL)
+    global RecentMessageList
+    RecentMessageList = tkinter.Listbox(RecentMessages, bg="Light Grey", relief = tkinter.FLAT,
+                                        highlightthickness=0,selectbackground="Light Grey",
+                                        fg = "black", selectforeground="black",
+                                        activestyle="none", yscrollcommand=MScrollBar.set)
+    MScrollBar.config(command=RecentMessageList.yview)
+    MScrollBar.pack(side=tkinter.RIGHT,fill=tkinter.Y)
+    RecentMessageList.pack(padx=10, anchor="w", fill=tkinter.Y)
+    
+    messages = RetriveRecentMessages()
+    global RMContactIDs
+    RMContactIDs = []
+    for message in messages:
+        print(message)
+        RMContactIDs.append(message[4])
+        RecentMessageList.insert(tkinter.END, message[3])
+        MessageText = GetMessageText(message[0],message[1],message[2])
+        MessageText.ljust(40)
+        RecentMessageList.insert(tkinter.END, MessageText[:20])
+        RecentMessageList.insert(tkinter.END, MessageText[21:40])
+    
+    RecentMessageList.bind("<<ListboxSelect>>",ContactFromRecent)
 
 def Resize(details):
     MaxCharacters = (details.width/50)-2
@@ -408,10 +413,8 @@ FullWidth.grid(row=0, column=0, columnspan=3,sticky="ew")#used by contact bar to
 ContactsHeader = tkinter.Frame(master=MainWindow, bg="Dark Grey",
                                highlightbackground="black", highlightthickness=1)
 ContactsHeader.grid(row=1, column=0, sticky="ew")
+CreateInviteButton()
 
-SendInviteButton = tkinter.Button(master=ContactsHeader, text="📨 Send Invite", bg="Dark Grey", 
-                                  relief = tkinter.FLAT, command=SendInvite)
-SendInviteButton.pack(side=tkinter.LEFT)
 #Column 2
 MessagesHeader = tkinter.Frame(master=MainWindow, bg="Dark Grey",
                                highlightbackground="black", highlightthickness=1)
