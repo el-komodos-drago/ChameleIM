@@ -20,8 +20,7 @@ def RegisterPublicKey():
     PublicKeyID = int(r.text)
     return(PublicKeyID,salt)
 
-#image,MessageID
-def SendImage(image,MessageID,PublicKeyID):  #image,MessageID
+def SendImage(image,MessageID,PublicKeyID): 
     #Based upon https://github.com/jumbry/Flask-fileserver/blob/main/postimage.py
     FileName = "ToServer/"+str(MessageID)+".png"
     image.save(FileName)
