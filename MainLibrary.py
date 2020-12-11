@@ -64,6 +64,7 @@ def AcceptInvite(ContactName,InputFile,OutputFile):
     SendMessage(OutputFile,MessageContents,IDpassword,PublicKey,Max,ContactID,PublicKeyID)
 
 def WrapMessage(FileName,message,IDpassword,PublicKey,Max):
+    #This function stores a message in a image
     message = str(Hash(message,IDpassword)) + message # Prepend HMAC to message
     EncryptedMessage = encrypt(int(PublicKey),int(Max),message) # Encrypt the message
     EncryptedMessage = json.dumps(EncryptedMessage) # Turn to string for stegano
@@ -71,6 +72,7 @@ def WrapMessage(FileName,message,IDpassword,PublicKey,Max):
     return(image)
 
 def SendMessage(FileName,message,IDpassword,PublicKey,Max,ContactID,PublicKeyID):
+    #This function sends a message to a contact
     #Save the message locally
     MyPublicKeyID, MyPublicKey, MyMax = CurrentSaveDetails(ContactID)
     MessageID = IndexMessage(ContactID, MyPublicKeyID, 1)
