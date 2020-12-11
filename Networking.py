@@ -20,16 +20,18 @@ def RegisterPublicKey():
     PublicKeyID = int(r.text)
     return(PublicKeyID,salt)
 
-def SendImage(image,MessageID,PublicKeyID): 
+def SendImage(image,MessageID,PublicKeyID):
+    #This sends an image to the server addressed to the provided PublicKeyID
+    
     #Based upon https://github.com/jumbry/Flask-fileserver/blob/main/postimage.py
     FileName = "ToServer/"+str(MessageID)+".png"
     image.save(FileName)
     
     url="http://104.197.192.205:8080/upload/ChameleIM.png"
     with open(FileName,'rb') as image:
-        files={"image":image}
-        data={"address":PublicKeyID}
-        r=requests.post(url, files=files, data=data)
+        files={"image":image} # Put the image in a dictionary
+        data={"address":PublicKeyID} # Put the PublicKeyID in a dictionary labelled as address
+        r=requests.post(url, files=files, data=data) # Sends those dictionaries to the server
     os.remove(FileName)
     print("Done")
 
@@ -40,12 +42,13 @@ def GetImageList(PublicKeyID,KHash):
     return(response.text)
 
 def GetImage(filename,PublicKeyID,KHash):
-    KHash = base64.b64encode(KHash.encode('utf-8')).decode('ascii')
+    KHash = base64.b64encode(KHash.encode('utf-8')).decode('ascii') # Encode KHash as base64
     url="http://104.197.192.205:8080/OpenImage"
     print(filename)
     data = {"filename":filename}
-    response=requests.post(url, auth=(PublicKeyID,KHash), data=data)
-    return(response.content)
+    response=requests.post(url, auth=(PublicKeyID,KHash), data=data) # Sends the request
+    #to the server with the filename and the authentication.
+    return(response.content) # Return the binary for the image
 
 def DeleteImage(filename,PublicKeyID,KHash):
     KHash = base64.b64encode(KHash.encode('utf-8')).decode('ascii')
