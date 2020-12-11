@@ -130,6 +130,7 @@ def RetriveRecentMessages():
         MessagesList.append([message[0],message[1],message[2],GetContactName(message[3]),message[3]])
     return(MessagesList)
 
+RetriveRecentMessages()
 
 with sqlite3.connect("data.db") as database: 
     try: #check tables exist
@@ -170,4 +171,3 @@ with sqlite3.connect("data.db") as database:
         query = "INSERT INTO messages VALUES (?,?,?,?,?)"
         database.execute(query, [1,1,1,1,1])
 
-RetriveRecentMessages()
