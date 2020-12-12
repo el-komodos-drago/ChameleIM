@@ -325,6 +325,7 @@ def RenderContactBar(MaxWidth = 15):
     global ContactIDs
     ContactIDs = []
     contacts = RetriveContacts()
+    print(contacts)
     for contact in contacts:
         ContactName,ID = contact
         ContactIDs.append(ID)
