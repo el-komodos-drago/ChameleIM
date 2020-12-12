@@ -83,6 +83,7 @@ def SendMessage(FileName,message,IDpassword,PublicKey,Max,ContactID,PublicKeyID)
     #Send the message
     image = WrapMessage(FileName,message,IDpassword,PublicKey,Max)
     SendImage(image,MessageID,PublicKeyID)
+    yield("Message sent to server")
 
 def GetMessageText(MessageID, PrivateKeyID,Max):
     contents = lsb.reveal("Messages/"+str(MessageID)+".png") 
