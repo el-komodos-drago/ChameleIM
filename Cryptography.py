@@ -126,4 +126,7 @@ def Hash(data, salt = urandom(32)): #hash string with a salt that defaults to 16
 
 result, salt = Hash("Alpha")
 print("hash 1: "+result)
-print("hash 2: "+Hash("Beta", salt)[0])
+print("hash 2: "+Hash("Alpha", salt)[0]) #Test 4: this has the same string and salt.
+print("hash 3: "+Hash("Alpha", salt)[0]) #Test 5a: this has the same salt but a new string.
+print("hash 4: "+Hash("Alpha", salt)[0]) #Test 5b: this has the same string but a new salt.
+print("hash 5: "+Hash("Alpha", salt)[0]) #Test 5c: this has a different salt and string.
