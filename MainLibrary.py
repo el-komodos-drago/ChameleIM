@@ -62,6 +62,7 @@ def AcceptInvite(ContactName,InputFile,OutputFile):
         else:
             MyPublicKeyID,MyPublicKey,MyMax = RerturnedData
     MessageContents = json.dumps(["Invite Accepted",MyPublicKeyID,MyPublicKey,MyMax])
+    print("AI-1")
     SendMessage(OutputFile,MessageContents,IDpassword,PublicKey,Max,ContactID,PublicKeyID)
 
 def WrapMessage(FileName,message,IDpassword,PublicKey,Max):
