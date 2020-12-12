@@ -172,3 +172,5 @@ with sqlite3.connect("data.db") as database:
         query = "INSERT INTO messages VALUES (?,?,?,?,?)"
         database.execute(query, [1,1,1,1,1])
 
+for item in RetriveContacts():
+    print(item)
