@@ -409,7 +409,7 @@ ContactID=1
 ContactDisplayedName = ""
 MainWindow = tkinter.Tk()
 MainWindow.minsize(600,100)
-MainWindow.title("Alice's ChameleIM")
+MainWindow.title("Alice's ChameleIM") #DEV NOTE
 
 # Border colors as suggested by
 #https://code.activestate.com/recipes/580735-frame-with-border-color-for-tkinter/
