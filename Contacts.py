@@ -62,8 +62,8 @@ def RetriveContacts():
         query = """SELECT DISTINCT contacts.ContactName, contacts.ContactID
                    FROM messages INER JOIN contacts ON 
                    MContactID = contacts.ContactID
-                   WHERE contacts.ContactID > 1
-                   ORDER BY time"""
+                   WHERE contacts.ContactID > 1    --exclude the test contact
+                   ORDER BY time                   --order by most recent message"""
         contacts = database.execute(query)
     return(contacts) #returns a list of ContactName and ContactID in a SQL itterable
 
