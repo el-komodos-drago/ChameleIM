@@ -73,6 +73,7 @@ def WrapMessage(FileName,message,IDpassword,PublicKey,Max):
     return(image)
 
 def SendMessage(FileName,message,IDpassword,PublicKey,Max,ContactID,PublicKeyID):
+    print("SM-1")
     #This function sends a message to a contact
     #Save the message locally
     MyPublicKeyID, MyPublicKey, MyMax = CurrentSaveDetails(ContactID)
