@@ -63,7 +63,9 @@ def AcceptInvite(ContactName,InputFile,OutputFile):
             MyPublicKeyID,MyPublicKey,MyMax = RerturnedData
     MessageContents = json.dumps(["Invite Accepted",MyPublicKeyID,MyPublicKey,MyMax])
     print("AI-1")
-    SendMessage(OutputFile,MessageContents,IDpassword,PublicKey,Max,ContactID,PublicKeyID)
+    SM = SendMessage(OutputFile,MessageContents,IDpassword,PublicKey,Max,ContactID,PublicKeyID)
+    for ReturnedData in SM:
+        yield(ReturnedData)
 
 def WrapMessage(FileName,message,IDpassword,PublicKey,Max):
     #This function stores a message in a image
