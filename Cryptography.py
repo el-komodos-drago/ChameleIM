@@ -124,4 +124,4 @@ def Hash(data, salt = urandom(32)): #hash string with a salt that defaults to 16
     #HashResult = pbkdf2_hmac("sha512",data.encode("utf-8"),salt,100000) old code using PBKDF
     return(HashResult.decode("ANSI"),salt.decode("ANSI"))
 
-#print(Hash("Alpha"))
+print(Hash("Alpha"))
