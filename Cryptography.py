@@ -123,10 +123,3 @@ def Hash(data, salt = urandom(32)): #hash string with a salt that defaults to 16
     HashResult = scrypt(data.encode("utf-8"),salt=salt,n=32768,r=8,p=1, maxmem=50000000)
     #HashResult = pbkdf2_hmac("sha512",data.encode("utf-8"),salt,100000) old code using PBKDF
     return(HashResult.decode("ANSI"),salt.decode("ANSI"))
-
-result, salt = Hash("Alpha")
-print("hash 1: "+result)
-print("hash 2: "+Hash("Alpha", salt)[0]) #Test 4: this has the same string and salt.
-print("hash 3: "+Hash("Beta", salt)[0]) #Test 5a: this has the same salt but a new string.
-print("hash 4: "+Hash("Alpha", b"Chi")[0]) #Test 5b: this has the same string but a new salt.
-print("hash 5: "+Hash("Beta", b"Chi")[0]) #Test 5c: this has a different salt and string.
