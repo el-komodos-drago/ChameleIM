@@ -50,7 +50,7 @@ def AcceptInvite(ContactName,InputFile,OutputFile):
             raise ValueError
         if Max > (2 ** 2048): #ensure max small enough to be real
             raise ValueError
-        if PublicKey < 10000: #small values for PublicKey
+        if PublicKey < 10000: #small values for PublicKey damage security
             raise ValueError
     except (ValueError,json.decoder.JSONDecodeError):
         print("Invalid invite file") #if not JSON: JSONDecodeError; if wrong JSON: ValueError
