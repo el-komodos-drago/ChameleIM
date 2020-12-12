@@ -125,5 +125,5 @@ def Hash(data, salt = urandom(32)): #hash string with a salt that defaults to 16
     return(HashResult.decode("ANSI"),salt.decode("ANSI"))
 
 result, salt = Hash("Alpha")
-print("hash: "+result)
-print("hash: "+Hash("Alpha", salt)[0])
+print("hash 1: "+result)
+print("hash 2: "+Hash("Alpha", salt)[0])
