@@ -23,7 +23,7 @@ def CreateInvite(ContactName,filename,destination):
     # This function creates an invite file
     with open("WiFall Key") as WiFallKey:
         WFK = WiFallKey.read()
-    IDpassword = Hash(WFK)[1] #This gets a random salt
+    IDpassword = Hash(WFK)[1] #This gets a random salt, DEV NOTE: change to a blank string
     ContactID = AddContact(1,1,1,IDpassword,ContactName) # 1s represent blanks
     # these are filled in when a message is recieved
     for RerturnedData in CreateKeypair(ContactID):
