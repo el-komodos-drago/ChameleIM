@@ -120,7 +120,7 @@ def PollMessages(ContactID):
 def OpenMessage(FileName): # Processes a message for the first time
     MessageID = IndexMessage(ContactID, PublicKeyID, 0)
     with open("Messages/"+str(MessageID)+".png","wb") as file:
-        file.write(GetImage(FileName,PublicKeyID,KHash)) #As above
+        file.write(GetImage(FileName,PublicKeyID,KHash)) #Dev Note: As above
     DeleteImage(FileName,PublicKeyID,KHash)
     
     contents = lsb.reveal("Messages/"+str(MessageID)+".png")
